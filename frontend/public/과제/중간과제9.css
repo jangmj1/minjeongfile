@@ -21,7 +21,7 @@ textarea {resize: none;}
 	padding: 10px 20px;
 	margin: 10px 10px 0px 0px;
 	}
-.hello{vertical-align: top;} /*세로정렬  참고로 가로정렬은 text-align*/
+.hello{vertical-align:top;} /*세로정렬  참고로 가로정렬은 text-align*/
 .signup_form1{
 	width: 600px;
 	margin: 0 auto;
