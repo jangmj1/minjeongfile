@@ -17,7 +17,8 @@ form{
 	list-style-type: none; /* 앞에 땡떙 없앰*/
 	}
 .ul_1 .li_0{
-	width: 80px ; /* 1행 넓이 80*/
+	width: 80px ; /* 1행 넓이 80*/ 
+	border: solid;
 	
 }
 .ul_1 .li_1 {
@@ -35,8 +36,8 @@ textarea{resize: none;} /*내용란사이즈 변경조절x*/
  
 
 .signup_form1{
-	width: 400px;
-	margin: 0 auto;
+	width: 400px;  /*저장목록 전체가로크기*/
+	margin: 0 auto; /*센터*/
 	}
 	
 	
