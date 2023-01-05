@@ -18,8 +18,8 @@ li{list-style-type: none;}
  }
 .test{display: flex; justify-content: space-between;}
 .img{padding: 10px 0px; border-bottom:3px solid #eeeeee; border-top: 3px solid #eeeeee; }
-.up_li{text-align: right;}
-.up_li li {display: inline-block; padding: 10px; }
+.up_li {text-align: right;}
+.up_li li {display: inline-block; padding: 10px 0px; }
 .down_li li {display: inline-block; padding-left: 30px; margin: 10px 0px; }
 .down_li a{font-size: 20px;font-family: 'KorailRoundGothicBold'}
 
