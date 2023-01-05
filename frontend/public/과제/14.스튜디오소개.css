@@ -6,9 +6,10 @@
 	justify-content: center; /*가로 가운데 배치*/
 	align-items: center; /*세로 가운데 배치*/
 	color: white;
+	background-image: url("이미지/sub_intro.jpg");
 }
-#sub_img1{ background-image: url("이미지/sub_intro.jpg");}
-#content{display: flex; justify-content: center;width: 1200px;margin: 0 auto;width: 100%}
+ 
+
 #content img{width: 580px; padding: 50px 10px;}
 #content div{width: 580px; padding: 50px 10px;}
 #content h6,p{margin-bottom: 20px;}
