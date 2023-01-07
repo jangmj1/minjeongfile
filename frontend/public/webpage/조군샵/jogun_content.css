@@ -8,7 +8,7 @@ a{
 /*----------------------콘텐츠 시작---------------------*/
 
 #content{text-align: center;}
-.main_img{width: 100%}
+.main_img{width: 100%;}
 .main_content{margin: 200px 0px;}
 .top_img{
 	display: flex;

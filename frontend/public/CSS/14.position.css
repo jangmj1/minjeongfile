@@ -21,9 +21,9 @@
 	position: fixed; /*화면 위치 고정*/
 	right: 0px;top: 40%; /*위치임 가장 오른쪽에서,위에서40프로 내려서 팝업을 고정시킴*/
 	background-color: blue;
-	 opacity: 0.5;  /*투명도[퍼센트단위로 쓰던지 아니면0~1사이에 소스점]*/ 
+	 opacity: 1;  /*투명도[퍼센트단위로 쓰던지 아니면0~1사이에 소스점]*/ 
 	}
-body{background-color: yellow;}
+body{background-color: yellow;position: }
 		
 		
 		
