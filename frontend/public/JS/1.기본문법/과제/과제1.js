@@ -31,29 +31,35 @@ function onLogin(){
 }
 /****************************************과제2***************************************************/
 function onReg(){
-//5. dom객체    <input>마크업을 스크립트로 가져오기
-	let sreg=document.querySelector('.sreg')
-//5.             <input>마크업에 입력된 데이터 호출
-	//let sno=sreg.value;
-//6. 찾기[만약에 배열 내 입력한 값이 존재하면 찾는 인덱스/존재하지않으면 -1]
-	//let sInd=studentArray.indexOf(sno)
+//	 dom객체    <input>마크업을 스크립트로 가져오기
+	let sreg=document.querySelector('.sreg') //<input>마크업에 입력된 데이터 호출하여 sreg라는 변수명에 넣는다
+             
+	let sno2=sreg.value; //<input>마크업에 입력된 데이터의 값이 뭐가될진 모르지만 sno2에 담음
+ 
+	let sInd=studentArray.indexOf(sno2)
+	 //<input>마크업에 입력된 데이터의 값의 인덱스 인덱스번호찾기(studentArray안에 있는 데이터3가지만 적용)
 	
-	sa.push(sreg.value) //sa=빈깡통
-	console.log(sa)
+	studentArray.push(sreg.value) //인풋에 작성될 데이터가 studentArray 변수 안에 쌓인다
+	console.log(studentArray) //콘솔 창에서 확인가능
 	
-	document.querySelector('#resultBox')	
-	resultBox.innerHTML = '<li>'+sa+'</li>'
 	
-//7.논리
-	if(resultBox==sa)
-//8.출력innerHTML='로그인실패'	
-	console.log('실패')
-	//alert('로그인 실패')
-	else
-//8.출력innerHTML='로그인성공'	
-	console.log=('성공')
-	//{alert//('로그인성공')}
+	if(sInd==-1){ //만약에 sInd인덱스에 값이 없으면(0,1,2) 즉!동일한 학번이 없는게 참일경우 아래를 실행하라
+	document.querySelector('#resultBox').innerHTML='성공'} //마크업  <div #resultBox> 성공 </div>  =성공출력
 	
+	/*추가*/
+ 	else if(sno2==('')){ //input 벨류값이 ('') 과 같은게 참일시 다음을 실행해라
+		document.querySelector('#resultBox').innerHTML='학번을 입력해주세요~ '} //마크업  <div #resultBox> 학번을 입력해주세요~ </div>  =성공출력
+	
+	/*추가2,3 잘모르겠습니당*/	
+	else if(sno2.length!=8){
+		document.querySelector('#resultBox').innerHTML='8자리로 입력해 주세요'}
+	
+	else{ //그렇지 않을경우(거짓) 다음을 실행하라
+	document.querySelector('#resultBox').innerHTML='실패'} //<div #resultBox> 성공 </div> =실패 출력
+	
+		
+
+
 		
 }
 
