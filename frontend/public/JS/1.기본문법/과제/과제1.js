@@ -56,10 +56,5 @@ function onReg(){
 	
 	else{ //그렇지 않을경우(거짓) 다음을 실행하라
 	document.querySelector('#resultBox').innerHTML='실패'} //<div #resultBox> 성공 </div> =실패 출력
-	
-		
-
-
-		
 }
 
