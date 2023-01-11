@@ -4,7 +4,7 @@
 	2.함수 바깥에서 할껀지(js실행 1번 선언-누적 저장o)
 */
 	let studentArray =['20230110','20230109','20230108'] 
-	let sa=[]
+	
 
 
 //3.onclick="onLogin() 대한 함수를 만들어보자
@@ -39,22 +39,31 @@ function onReg(){
 	let sInd=studentArray.indexOf(sno2)
 	 //<input>마크업에 입력된 데이터의 값의 인덱스 인덱스번호찾기(studentArray안에 있는 데이터3가지만 적용)
 	
-	studentArray.push(sreg.value) //인풋에 작성될 데이터가 studentArray 변수 안에 쌓인다
+	 //인풋에 작성될 데이터가 studentArray 변수 안에 쌓인다
 	console.log(studentArray) //콘솔 창에서 확인가능
+	let resultBox=document.querySelector('#resultBox')
 	
+	let confirm=0;	
+	/*추가1*/
+	if(sno2==''){ //input 벨류값이 ('') 과 같은게 참일시 다음을 실행해라
+			resultBox.innerHTML='학번을 입력해주세요~ ';confirm++;} //마크업  <div #resultBox> 학번을 입력해주세요~ </div>  =성공출력
+	/*추가3*/	
+	if(confirm ==0&&sno2.length!=8){
+			
+			resultBox.innerHTML='8자리로 입력해 주세요';confirm++;}
+		
+	if(confirm==0)	{//만약에 confirm 0일때만 아래 코드 실행}
+		if(sInd==-1){ //만약에 sInd인덱스에 값이 없으면(0,1,2) 즉!동일한 학번이 없는게 참일경우 아래를 실행하라
+			resultBox.innerHTML='성공'
+			studentArray.push(sreg.value)
+			/*추가2*/
+			sreg.value=''		
+			} //마크업  <div #resultBox> 성공 </div>  =성공출력
+			
+		else{ //그렇지 않을경우(거짓) 다음을 실행하라
+				resultBox.innerHTML='실패'} //<div #resultBox> 성공 </div> =실패 출력
+			
+	 	}
 	
-	if(sInd==-1){ //만약에 sInd인덱스에 값이 없으면(0,1,2) 즉!동일한 학번이 없는게 참일경우 아래를 실행하라
-	document.querySelector('#resultBox').innerHTML='성공'} //마크업  <div #resultBox> 성공 </div>  =성공출력
-	
-	/*추가*/
- 	else if(sno2==('')){ //input 벨류값이 ('') 과 같은게 참일시 다음을 실행해라
-		document.querySelector('#resultBox').innerHTML='학번을 입력해주세요~ '} //마크업  <div #resultBox> 학번을 입력해주세요~ </div>  =성공출력
-	
-	/*추가2,3 잘모르겠습니당*/	
-	else if(sno2.length!=8){
-		document.querySelector('#resultBox').innerHTML='8자리로 입력해 주세요'}
-	
-	else{ //그렇지 않을경우(거짓) 다음을 실행하라
-	document.querySelector('#resultBox').innerHTML='실패'} //<div #resultBox> 성공 </div> =실패 출력
 }
 
