@@ -54,6 +54,6 @@ function 함수4(x,y,z){
 }
 함수4(1,2,3) //??? 반환후에 코드가 없다.
 let result=함수4(1,2,3)
-console.log('함수4변환:'+함수4(1,2,3))
+console.log('함수4변환:'+result)
 
 	

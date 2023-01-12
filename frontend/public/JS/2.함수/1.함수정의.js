@@ -90,7 +90,7 @@ function 민정(x,y){
 	let 성민=x*y;
 	return 성민;
 }
-let a=민정(1,2)
+let a=민정(1,2) 
 console.log(a)
 
 
