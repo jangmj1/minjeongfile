@@ -122,20 +122,7 @@ for(let i=1;i<=line3;i++){
 	for(let a=line3-i;a>=1;a--){
 			output+=' '
 	}
-	/*
-			5-1		4>=1	
-					3>=1
-					2>=1
-					1>=1
-			5-2		3>=1
-					2>=1
-					1>=1
-			5-3
-					2>=3
-					
-					
-	*/
-	
+
 	for(let s=1;s<=i;s++){
 		output+='*'
 	}
@@ -236,7 +223,7 @@ s는 1부터(현재줄수*2-1)					=for(let s=1;s<=i*2-1;s++)
 */
 output=''
 let line5=Number(prompt('과제 5 줄수:'))
-for(let i=1;i<line5;i++){
+for(let i=1;i<=line5;i++){
 	//1.공백
 	for(let b=1;b<=line5-i;b++){
 		output+=' '
