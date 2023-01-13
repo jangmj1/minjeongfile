@@ -43,7 +43,7 @@ function onReg(){
 	console.log(studentArray) //콘솔 창에서 확인가능
 	let resultBox=document.querySelector('#resultBox')
 	
-	let confirm=0;	
+		
 	/*추가1*/
 	if(sno2==''){ //input 벨류값이 ('') 과 같은게 참일시 다음을 실행해라
 			resultBox.innerHTML='학번을 입력해주세요~ ';confirm++;} //마크업  <div #resultBox> 학번을 입력해주세요~ </div>  =성공출력
