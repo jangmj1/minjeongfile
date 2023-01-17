@@ -19,7 +19,7 @@ document.body.innerHTML = h1
 // 2. DOM 객체의 이벤트
 	// 1. 기존 함수 적용 
 function 함수1(){ console.log('문서열림1') }
-window.onload = 함수1
+
 document.addEventListener( 'DOMContentLoaded' , 함수1  )//html 열렸을때 사용 
 
 	// 2. 익명[이름없는] 함수 적용 
