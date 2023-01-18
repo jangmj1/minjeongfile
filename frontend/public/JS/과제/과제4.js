@@ -9,7 +9,7 @@ console.log('작동')
 	
 	
 
-
+중복함수()
 function 중복함수(){//f s
 	let htm1=''
 	let b_list=''
