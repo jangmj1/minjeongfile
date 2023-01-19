@@ -1,3 +1,4 @@
+
 //공통
 let categoryList=['프리미엄','스페셜','와퍼','올데이킹','치킨버거']
 let bugerlist=[
@@ -8,7 +9,7 @@ let bugerlist=[
 let cartlist=[]
 let orderlist=[]
 
-category_print ()
+category_print()
 category_select(0) //:기본값 프리미엄 빨갛게 보이게
 product_print(0)	//:기본값 프리미엄
 //1. 카페고리 출력하는 함수
@@ -17,10 +18,10 @@ function category_print (){
 		for(let i=0;i<categoryList.length;i++){
 		html+=`<li class="categoryli" onclick="category_select(${i})">${categoryList[i]}</li>`
 		}
-		html+=`<ul>`
+		html+=`</ul>`
 				
 	
-						
+			
 	document.querySelector('.categorybox').innerHTML=html				
 	
 }
@@ -30,18 +31,17 @@ function category_select(i){//i:선택된 li의 인덱스
 	let categoryli=	document.querySelectorAll('.categoryli')
 	
 	//2. 모든 li 배열 반복문
-	for(let j=0;j<categoryli.length;j++){
+	for(let j=0;j<categoryli.length;j++){//선택한 i 와 다.른.걸 찾기위해 포문돌린다
 		if(j==i){//i=선택된 li / 만약에 if배열에서 내가 선택한 li의 인덱스와 같으면 
-			categoryli[j].classList.add('categoryselect');
+			categoryli[j].classList.add('categoryselect');//카테고리 선택한 i와 j가 같으면 css파일에서 빨갛게 꾸며논 .categoryselect 클래스를 넣는다
 			
-		}else{
-			categoryli[j].classList.remove('categoryselect');
-		}
-	}
+			}	else{
+			categoryli[j].classList.remove('categoryselect');//css파일에서 꾸며논 .categoryselect 클래스를 빼서 회색으로 만든다 선택된 i가 아닌 j 를
+			}
 	
-	product_print( i )
+			product_print( i )
+		}
 }
-
 //3. 제품 출력 함수 [js열렸을때,카테고리가 바겼을때 index들어온다]
 function product_print( index ){
 	console.log( index )
@@ -99,14 +99,16 @@ function order(){
 	alert('주문합니다')
 	console.log('주문전'+cartlist)
 	//1.주문번호 만들기 즉 인덱스만들기
-	let no=0;
-	if( orderlist.length==0){no=1;} // 주문이 하나도 없으면 주문 번호는 1번이 될꺼다
-	else{no=orderlist[orderlist.length-1].no+1} //만약에 아니면 마지막 인덱스의 주문번호 +1 *참고로 인덱스는 길이의 -1
+	let num=0;
+	if( orderlist.length==0){num=1;} // 만약에 주문이 하나도 없으면 주문 번호는 1번이 될꺼다
+	else{num=orderlist[orderlist.length-1].no+1 ; console.log(' 마지막 주문의 주문번호 : ' + orderlist[orderlist.length-1].no )} // 아니면 마지막 인덱스의 주문번호 +1 *참고로 인덱스는 길이의 -1
+	console.log(' 새롭게 생성된 num 만들기 : ' + num )
+	
 	
 	
 	//총 가격 만들기
 	
-	let map배열=cartlist.map( (o)=>{console.log(o);return o; } )
+	let map배열=cartlist.map( (o)=>{console.log(o);return o; } )//map 함수에서 리턴된 객체를(o) 하나씩 반복되며 map배열에 대입
 	console.log(map배열)
 	
 	let total=0;
@@ -114,7 +116,7 @@ function order(){
 			 
 		//1.order 객체 만들기
 		let order={
-			no:no,
+			no:num,
 			items: map배열, //map( ()=>{  } )
 			time:new Date(), // 현재 날짜와 시간을 호출해준다
 			state: true, //true:주문 false:주문완료
@@ -162,11 +164,57 @@ function cart_print(){
 		document.querySelector('.cartbottom').innerHTML=html;
 }
 
+/*************************************************************************/
+let 새로운버거=''
+function 버거등록(){
+	새로운버거={
+	 	name:document.querySelector('.이름').value,
+		price:parseInt(document.querySelector('.가격').value),
+		img:'스태커3와퍼.png' ,
+		category:document.querySelector('.카테고리').value
+	}
+	
+		if( !(categoryList.includes( 새로운버거.category)) ){
+			console.log('카테고리 확인해라.') 
+			}
+		else if(isNaN(새로운버거.price)){
+			console.log('금액은 숫자로 작성해주세요') 
+			}
+		else{
+			bugerlist.push(새로운버거)		
+			product_print(0);console.log(bugerlist)}
+			등록출력()	
+	}	
+	등록출력()
+function 등록출력(){
+	html=`<tr><th>제품번호</th><th>이미지</th><th>버거이름</th><th>카테고리</th><th>가격</th><th>비고</th></tr>`
+	
+	for(i=0;i<bugerlist.length;i++){
+		html+=`<tr><td>${i+1}</td><td><img style="width: 40px;"  src= "과제5/스태커3와퍼.png"></td><td>${bugerlist[i].name}</td>
+				   <td>${bugerlist[i].category}</td><td>${bugerlist[i].price}</td>
+				   <td><button onclick="삭제버튼(${i})">삭제</button><button onclick="가격수정버튼(${i})">가격수정</button> </td></tr>`
+	}
+	document.querySelector('.신메뉴').innerHTML=html
+}		
 
 
+function 삭제버튼(i){
+	bugerlist.splice(i,1)
+	등록출력()
+	product_print(0)
+	console.log('버거리스트',bugerlist)
+}
 
-
-
+function 가격수정버튼(i){
+	let 수정=prompt('금액을 수정해 주세요.')
+	bugerlist[i].price=수정
+	console.log(bugerlist[i].price)
+	등록출력()
+	product_print(0)
+}
+		
+			
+	
 
 
 

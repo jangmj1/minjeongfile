@@ -112,12 +112,38 @@
 }
 
 
-
-
-.footer{
-	height: 50px;
-	border:1px solid #eeeeee;
+.버거등록{
+	display: flex; justify-content:space-between;
+	width: 450px;
+	border: 1px solid black;
+	padding: 10px;
+	margin: 10px 0px;
 }
+
+.버거등록 td,input{padding: 5px;}
+.버거등록버튼{padding: 50px;}
+
+.신메뉴{
+	margin: 10px 0px;
+	border: 1px solid black;
+	
+	
+}
+.신메뉴 th,td{
+	padding: 10px;
+	margin:5px;
+	text-align: center;
+}
+
+
+.신메뉴 button{
+	width: 100px;
+	padding: 15px;
+	font-size: 15px;
+	
+	
+}
+
 
 
 
