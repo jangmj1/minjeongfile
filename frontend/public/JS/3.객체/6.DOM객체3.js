@@ -31,7 +31,7 @@ const h3 =	document.querySelector('h3')
 		
 		
 	document.body.addEventListener('keydown',(e)=>{ //키를 꾹~ 누르고 있을때 실행
-		console.log(e.keyCode)
+		
 		
 		if(control){ // 만약에 control이 true인 경우에만 아래 실행
 			let key=e.keyCode;
@@ -42,7 +42,7 @@ const h3 =	document.querySelector('h3')
 			else if(key==40){ y++;}
 			print()
 		}
-	
+	console.log(e.keyCode)
 	
 	
 	}  )

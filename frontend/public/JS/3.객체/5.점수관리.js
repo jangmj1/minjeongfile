@@ -144,6 +144,7 @@ function printTable(){ // 함수를 만드는것뿐 쓴게아니다
        
        
        
+<<<<<<< HEAD
        
          
        /*
@@ -175,6 +176,39 @@ function printTable(){ // 함수를 만드는것뿐 쓴게아니다
 			100일때	100 < 100	f			rank = 1
 
 */
+=======
+       /*
+	- 배열내 순위 
+	예시)
+		for1 : 80	90	75	100
+		for2 : 80	90	75	100
+		
+	1.
+		80 일때	rank = 1
+			80일때	80 < 80		f
+			90일때	80 < 90		t rank++	rank = 2
+			75일때	80 < 75		f
+			100일때	80 < 100	t rank++	rank = 3 
+		90 일때	rank = 1
+			80일때	90 < 80		f
+			90일때	90 < 90		f
+			75일때	90 < 75		f
+			100일때	90 < 100	t rank++	rank = 2
+		75 일때	rank = 1
+			80일때	75 < 80		t rank++	rank = 2
+			90일때	75 < 90		t rank++	rank = 3 
+			75일때	75 < 75		f
+			100일때	755 < 100	t rank++	rank = 4
+		100 일때	rank = 1
+			80일때	100 < 80	f
+			90일때	100 < 90 	f
+			75일때	100 < 75	f
+			100일때	100 < 100	f			rank = 1
+
+*/
+
+       
+>>>>>>> branch 'main' of https://github.com/jangmj1/minjeongfile
        
        
        
