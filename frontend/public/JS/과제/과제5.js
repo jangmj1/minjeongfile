@@ -97,25 +97,26 @@ function order(){
 	
 	
 	alert('주문합니다')
-	console.log('주문전'+cartlist)
 	//1.주문번호 만들기 즉 인덱스만들기
 	let num=0;
 	if( orderlist.length==0){num=1;} // 만약에 주문이 하나도 없으면 주문 번호는 1번이 될꺼다
 	else{num=orderlist[orderlist.length-1].no+1 ; console.log(' 마지막 주문의 주문번호 : ' + orderlist[orderlist.length-1].no )} // 아니면 마지막 인덱스의 주문번호 +1 *참고로 인덱스는 길이의 -1
-	console.log(' 새롭게 생성된 num 만들기 : ' + num )
+	
 	
 	
 	
 	//총 가격 만들기
 	
-	let map배열=cartlist.map( (o)=>{console.log(o);return o; } )//map 함수에서 리턴된 객체를(o) 하나씩 반복되며 map배열에 대입
-	console.log(map배열)
+	let map배열=cartlist.map( (o)=>{return o; } )//map 함수에서 리턴된 객체를(o) 하나씩 반복되며 map배열에 대입
+	
 	
 	let total=0;
+	
 	for(let i=0;i<cartlist.length;i++){total+=cartlist[i].price}
+			
 			 
 		//1.order 객체 만들기
-		let order={
+		let order1={
 			no:num,
 			items: map배열, //map( ()=>{  } )
 			time:new Date(), // 현재 날짜와 시간을 호출해준다
@@ -125,16 +126,15 @@ function order(){
 		 }
 	
 		//2.order 객체 배열에저장
-		orderlist.push(order)
-		console.log('주문전'+orderlist)
-	
-	
-	
-	
-	
+		orderlist.push(order1)
+		
+		
 	//2.주문 환료후
+	주문현황출력(i)
+	
 	cartlist.splice(0)
 	cart_print()
+	
 }
 
 
@@ -191,7 +191,7 @@ function 등록출력(){
 	
 	for(i=0;i<bugerlist.length;i++){
 		html+=`<tr><td>${i+1}</td><td><img style="width: 40px;"  src= "과제5/스태커3와퍼.png"></td><td>${bugerlist[i].name}</td>
-				   <td>${bugerlist[i].category}</td><td>${bugerlist[i].price}</td>
+				   <td>${bugerlist[i].category}</td><td>${bugerlist[i].price.toLocaleString()}원</td>
 				   <td><button onclick="삭제버튼(${i})">삭제</button><button onclick="가격수정버튼(${i})">가격수정</button> </td></tr>`
 	}
 	document.querySelector('.신메뉴').innerHTML=html
@@ -210,11 +210,94 @@ function 가격수정버튼(i){
 	bugerlist[i].price=수정
 	console.log(bugerlist[i].price)
 	등록출력()
-	product_print(0)
+	product_print()
 }
-		
-			
 	
+주문현황출력()	
+
+let state= ''
+
+function 주문현황출력(){
+			let html= `<tr><th>주문번호</th><th>버거이름</th><th>상태</th><th>요청/완료일</th><th>비고</th></tr>`
+			
+			for(let i=0;i<orderlist.length ; i++){
+				for(let j=0;j<orderlist[i].items.length;j++){
+					
+					
+				
+					
+					console.log('orderlist[i].items.length',orderlist[i].items.length)
+					
+					console.log('order2',orderlist[i].items[j].name )
+					
+					
+					
+					
+				html +=  `<tr><td>${orderlist[i].no}</td><td>${orderlist[i].items[j].name}</td>
+						 <td class="상태">${orderlist[i].state ? '주문요청':'주문완료'}</td>
+						 <td>${orderlist[i].time}</td>
+						 <td>${orderlist[i].state ? `<button class="주문버튼"  onclick="주문완료(${ (orderlist[i].no)-1} )">주문완료</button>`:''}</td></tr>`
+									
+					
+				}
+				
+				
+			}	
+				document.querySelector('.주문현황').innerHTML=html
+	
+		
+				 	
+	
+}
+
+
+
+
+
+function 주문완료(j){
+	console.log('no',j) //j 값은 오더리스트의 인덱스
+	
+	orderlist[j].state=false //클릭함과 동시에 state값이 펄스가됨 =>state를 전역함수로 빼서 삼항연산자에값을 펄스로 바꿔 주문완료로 바꾼다
+	
+	console.log(orderlist[j].state) // 상태 펄스
+	
+	주문현황출력()//출력하면 삼항연산자가 바
+	현황()
+	
+	
+	
+}
+
+현황()
+
+function 현황(){//시발 모르겟다
+		let html= `<tr><th>제품번호</th><th>버거이름</th><th>판매수량</th><th>매출액</th><th>순위[매출액기준]</th></tr>`
+		
+			for(let i=0;i<orderlist.length;i++){
+				
+				for(let j=0;j<orderlist[i].items.length;j++){
+					
+					
+					
+		
+			 html+= `<tr><td>${i+1}</td><td>${orderlist[i].items[j].name}</td><td>판매수량</td><td>매출액</td><td>순위[매출액기준]</td></tr>`
+					
+			 
+			 
+			 }
+		
+		}
+		document.querySelector('.매출현황').innerHTML=html
+	
+}
+
+
+
+
+
+
+
+
 
 
 

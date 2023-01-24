@@ -144,7 +144,7 @@ function printTable(){ // 함수를 만드는것뿐 쓴게아니다
        
        
        
-<<<<<<< HEAD
+
        
          
        /*
@@ -176,7 +176,7 @@ function printTable(){ // 함수를 만드는것뿐 쓴게아니다
 			100일때	100 < 100	f			rank = 1
 
 */
-=======
+
        /*
 	- 배열내 순위 
 	예시)
@@ -208,8 +208,7 @@ function printTable(){ // 함수를 만드는것뿐 쓴게아니다
 */
 
        
->>>>>>> branch 'main' of https://github.com/jangmj1/minjeongfile
-       
+
        
        
        
