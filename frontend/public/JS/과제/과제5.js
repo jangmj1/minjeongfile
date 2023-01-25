@@ -116,7 +116,7 @@ function order(){
 			
 			 
 		//1.order 객체 만들기
-		let order1={
+		let order={
 			no:num,
 			items: map배열, //map( ()=>{  } )
 			time:new Date(), // 현재 날짜와 시간을 호출해준다
@@ -126,7 +126,7 @@ function order(){
 		 }
 	
 		//2.order 객체 배열에저장
-		orderlist.push(order1)
+		orderlist.push(order)
 		
 		
 	//2.주문 환료후
@@ -222,7 +222,7 @@ function 주문현황출력(){
 			
 			for(let i=0;i<orderlist.length ; i++){
 				for(let j=0;j<orderlist[i].items.length;j++){
-					
+					console.log('orderlist',orderlist)
 					
 				
 					
