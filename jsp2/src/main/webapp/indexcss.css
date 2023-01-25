@@ -17,7 +17,7 @@
 
 
 .logobox{/* 로고구역 */
-	text-align: center;
+	text-align: center; 
 }
 
 .title{ /* 로고제목 */
@@ -45,7 +45,7 @@
 
 
 
-
+.d-block{ width:80%; text-align: center;}
 
 
 
