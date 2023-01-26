@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style type="text/css">
+	
+</style>
+
+</head>
+<body>
+
+	
+	<div class="container">
+		미리 만들어진 css박스권
+	</div>
+
+	<!-- 그리드 -->
+
+	<div class="container">
+		<div class="row box1"> 
+			<div class="col-md-1 col-1">col-md-1[열1칸]</div> <!-- col-md-1 는 총 12조각  -->
+			<div class="col-md-1 col-1">col-md-1[열2칸]</div>	<!-- col-1 : 핸드폰에서 볼때도 적용된다 -->
+			<div class="col-md-1 col-1">col-md-1[열3칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열4칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열5칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열6칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열7칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열8칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열9칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열10칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열11칸]</div>
+			<div class="col-md-1 col-1">col-md-1[열12칸]</div>
+		</div>
+		<div class="row box1"> 
+			<div class="col-md-1 ">col-md-1[열1칸]</div> <!-- col-md-1 는 총 12조각  -->
+			<div class="col-md-1 ">col-md-1[열2칸]</div>
+			<div class="col-md-1 ">col-md-1[열3칸]</div>
+			<div class="col-md-1 ">col-md-1[열4칸]</div>
+			<div class="col-md-1 ">col-md-1[열5칸]</div>
+			<div class="col-md-1 ">col-md-1[열6칸]</div>
+			<div class="col-md-1 ">col-md-1[열7칸]</div>
+			<div class="col-md-1 ">col-md-1[열8칸]</div>
+			<div class="col-md-1 ">col-md-1[열9칸]</div>
+			<div class="col-md-1 ">col-md-1[열10칸]</div>
+			<div class="col-md-1 ">col-md-1[열11칸]</div>
+			<div class="col-md-1 ">col-md-1[열12칸]</div>
+		</div>
+		
+		<div class="row">								<!-- 부모한테 row 써줄것! 자식들(하위요소들)이 가로배열 -->
+			<div class="col-md-8 col-8">col-md-8</div>
+			<div class="col-md-4 col-4">col-md-4</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4 col-4">col-md-4</div>
+			<div class="col-md-4 col-4">col-md-4</div>
+			<div class="col-md-4 col-4">col-md-4</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6 col-6">col-md-6</div>
+			<div class="col-md-6 col-6">col-md-6</div>
+		</div>
+		
+	
+			<!-- 그리드 안에 그리드  -->
+			<!-- 8그리드를 나누면 8안에서 12조각이된다  -->
+		<div class="row">
+			<div class="col-md-8 col-8" style="background-color: red;">
+				<div class="row">
+					<div class="col-md-4 col-4" style="background-color: blue;">4그리드</div>
+					<div class="col-md-8 col-8" style="background-color: blue;">8그리드</div>
+				</div>
+			</div>	
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-6 col-6">6그리드</div>				
+					<div class="col-md-6 col-6">6그리드</div>				
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-5 col-6">col-md-5</div>
+			<div class="col-md-5 offset-md-2 col-6">col-md-5</div> <!--offset-md-2 안쓰면 2그리드가 오른쪽에 남는다  --> <!-- offset-md-공백조각수 : 공백조각이 가운데로 간다-->
+			
+			
+		</div>
+		
+		<table class="table ">
+			<thead ><!-- 제목 -->
+				<tr><th>번호</th><th>제목</th><th>작성일</th><th>조회수</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>안녕~~</td><td>2023-1-26</td><td>3</td></tr>
+				<tr><td>2</td><td>하이~~</td><td>2023-1-25</td><td>1</td></tr>
+				<tr><td>3</td><td>방가~~</td><td>2023-1-24</td><td>7</td></tr>
+			
+			</tbody>
+		</table>
+		
+		<!-- 3구역의 테이블 -->
+		<div class="row"><!-- 플렉스와같은역활 -->
+			<div class="col-md-4">
+				<table class="table table-striped">
+					<thead> <tr><td>번호</td><td>제목</td></tr> </thead>
+					<tbody> 
+						<tr><td>1</td><td>안녕</td></tr>
+						<tr><td>2</td><td>하이</td></tr>
+						<tr><td>3</td><td>방가</td></tr>
+					</tbody>
+				</table>
+				
+			</div>
+			<div class="col-md-4">
+				<table class="table table-hover table-warning">
+					<thead> <tr><td>번호</td><td>제목</td></tr> </thead>
+					<tbody> 
+						<tr><td>1</td><td>안녕</td></tr>
+						<tr><td>2</td><td>하이</td></tr>
+						<tr><td>3</td><td>방가</td></tr>
+					</tbody>
+				</table>
+			
+			</div>
+			<div class="col-md-4">
+				<table class="table table-bordered ">
+					<thead> <tr><td>번호</td><td>제목</td></tr> </thead>
+					<tbody> 
+						<tr><td>1</td><td>안녕</td></tr>
+						<tr><td>2</td><td>하이</td></tr>
+						<tr><td>3</td><td>방가</td></tr>
+					</tbody>
+				</table>
+			
+			
+			</div>
+		</div>
+		
+	</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
