@@ -17,8 +17,9 @@
 }
 .container{
 	width: 45%;
-	border:1px solid #eeeeee;
+	
 	margin: 2%
+
 }
 .kioskbox{
 	width: 100%; 	
@@ -152,24 +153,25 @@
 	
 }
 
-.주문현황 td{
+.주문현황 td, .salestable td{
 	font-size: 13px;
 	padding: 5px 10px;
 	text-align: center;
 	
 	
 }
-.주문현황 th, .매출현황 th{
+.주문현황 th, .salestable th{
 	font-size: 20px;
 	padding: 5px 20px;
 	background-color: #eeeeee;
 	
 	
+	
 }
-.주문현황, 매출현황{
+.주문현황, .salestable{
 	margin: 10px 0px;
 	
 }
 
 
-
+h3{margin-top: 15px;}

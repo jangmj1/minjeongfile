@@ -130,11 +130,11 @@ function order(){
 		
 		
 	//2.주문 환료후
-	주문현황출력(i)
+	주문현황출력()
 	
 	cartlist.splice(0)
 	cart_print()
-	
+	현황()
 }
 
 
@@ -165,9 +165,9 @@ function cart_print(){
 }
 
 /*************************************************************************/
-let 새로운버거=''
+
 function 버거등록(){
-	새로운버거={
+let	새로운버거={
 	 	name:document.querySelector('.이름').value,
 		price:parseInt(document.querySelector('.가격').value),
 		img:'스태커3와퍼.png' ,
@@ -175,22 +175,23 @@ function 버거등록(){
 	}
 	
 		if( !(categoryList.includes( 새로운버거.category)) ){
-			console.log('카테고리 확인해라.') 
+			alert('카테고리 확인해라.'); return;
 			}
 		else if(isNaN(새로운버거.price)){
-			console.log('금액은 숫자로 작성해주세요') 
+			alert('금액은 숫자로 작성해주세요'); return; 
 			}
 		else{
 			bugerlist.push(새로운버거)		
 			product_print(0);console.log(bugerlist)}
 			등록출력()	
+			
 	}	
 	등록출력()
 function 등록출력(){
 	html=`<tr><th>제품번호</th><th>이미지</th><th>버거이름</th><th>카테고리</th><th>가격</th><th>비고</th></tr>`
 	
 	for(i=0;i<bugerlist.length;i++){
-		html+=`<tr><td>${i+1}</td><td><img style="width: 40px;"  src= "과제5/스태커3와퍼.png"></td><td>${bugerlist[i].name}</td>
+		html+=`<tr><td>${i+1}</td><td><img style="width: 40px;"  src= "과제5/${bugerlist[i].img}"></td><td>${bugerlist[i].name}</td>
 				   <td>${bugerlist[i].category}</td><td>${bugerlist[i].price.toLocaleString()}원</td>
 				   <td><button onclick="삭제버튼(${i})">삭제</button><button onclick="가격수정버튼(${i})">가격수정</button> </td></tr>`
 	}
@@ -200,22 +201,22 @@ function 등록출력(){
 
 function 삭제버튼(i){
 	bugerlist.splice(i,1)
-	등록출력()
 	product_print(0)
+	등록출력()
 	console.log('버거리스트',bugerlist)
 }
 
 function 가격수정버튼(i){
 	let 수정=prompt('금액을 수정해 주세요.')
-	bugerlist[i].price=수정
+	bugerlist[i].price=parseInt(수정)
 	console.log(bugerlist[i].price)
+	product_print(0)
 	등록출력()
-	product_print()
 }
 	
 주문현황출력()	
 
-let state= ''
+
 
 function 주문현황출력(){
 			let html= `<tr><th>주문번호</th><th>버거이름</th><th>상태</th><th>요청/완료일</th><th>비고</th></tr>`
@@ -231,13 +232,16 @@ function 주문현황출력(){
 					console.log('order2',orderlist[i].items[j].name )
 					
 					
-					
+				let time1=orderlist[i].time.getHours()+':'+orderlist[i].time.getMinutes();
+				if(orderlist[i].state==false){
+					time1+= '/'+orderlist[i].complete.getHours()+':'+orderlist[i].complete.getMinutes();
+				}	
 					
 				html +=  `<tr><td>${orderlist[i].no}</td><td>${orderlist[i].items[j].name}</td>
 						 <td class="상태">${orderlist[i].state ? '주문요청':'주문완료'}</td>
-						 <td>${orderlist[i].time}</td>
+						 <td>${time1}</td>
 						 <td>${orderlist[i].state ? `<button class="주문버튼"  onclick="주문완료(${ (orderlist[i].no)-1} )">주문완료</button>`:''}</td></tr>`
-									
+																						//주문완료의 인덱스 (orderlist[i]만 쓰니까 안됨..why)
 					
 				}
 				
@@ -246,7 +250,7 @@ function 주문현황출력(){
 				document.querySelector('.주문현황').innerHTML=html
 	
 		
-				 	
+				현황() 	
 	
 }
 
@@ -257,12 +261,13 @@ function 주문현황출력(){
 function 주문완료(j){
 	console.log('no',j) //j 값은 오더리스트의 인덱스
 	
-	orderlist[j].state=false //클릭함과 동시에 state값이 펄스가됨 =>state를 전역함수로 빼서 삼항연산자에값을 펄스로 바꿔 주문완료로 바꾼다
+	orderlist[j].state=false //클릭함과 동시에 state값이 펄스가됨 =>삼항연산자에값을 펄스로 바꿔 주문완료로 바꾼다
+	orderlist[j].complete=new Date(); 
 	
 	console.log(orderlist[j].state) // 상태 펄스
 	
 	주문현황출력()//출력하면 삼항연산자가 바
-	현황()
+	
 	
 	
 	
@@ -270,34 +275,55 @@ function 주문완료(j){
 
 현황()
 
-function 현황(){//시발 모르겟다
+function 현황(){
 		let html= `<tr><th>제품번호</th><th>버거이름</th><th>판매수량</th><th>매출액</th><th>순위[매출액기준]</th></tr>`
 		
-			for(let i=0;i<orderlist.length;i++){
+			bugerlist.forEach( (buger,i )=>{//등록된 모든 버거가 반복중
+				html +=`<tr><td>${i+1}</td><td>${buger.name}</td><td>${sales_count(i)}</td><td>${ (sales_count(i)*buger.price).toLocaleString() }</td><td>${sales_rank(i)}</td></tr>`
+			})
 				
-				for(let j=0;j<orderlist[i].items.length;j++){
-					
-					
-					
 		
-			 html+= `<tr><td>${i+1}</td><td>${orderlist[i].items[j].name}</td><td>판매수량</td><td>매출액</td><td>순위[매출액기준]</td></tr>`
-					
-			 
-			 
-			 }
 		
-		}
-		document.querySelector('.매출현황').innerHTML=html
+		document.querySelector('.salestable').innerHTML=html
 	
 }
 
 
+//8.판매수량 찾기
+function sales_count(index){
+	console.log('i번쨰 버거',i);
+	let count=0;//i번째 제품의 누적 판매량수 저장하는 변수
+	
+	//2. 주문목록에서 i번째 제품 찾기
+	orderlist.forEach((order,i  )=>{ //function sales_count(i) i가 중복되어 못써서 위에 index로 바꿨음 //주문목록 반복문
+		order.items.forEach((buger,j  )=>{//주문마다 버거리스트 반복문
+			console.log(buger)
+			if(buger.name==bugerlist[index].name){count++}//만약에 현재  버거리스트내 버거이름과 index번째 버거이름과 같으면
+		})
+	})
+	
+	return count //i 번째 제품의 누적 판매량수 변수 반환
+	
+}
+function sales_rank(index){console.log(index+' 번째 버거 순위')
+let rank=1;// 1.index번째 버거의 순위 저장하는 함수[기본값 1등]
+	//2.index번째 버거 순위 구하기
+		
+		//index 번째 버거의 매출액 //매출액 : 수량*금액
+		let total=sales_count(index)*bugerlist[index].price;
+		
+		//2.모든 버거들 마다의 매출액
+		bugerlist.forEach((buger,i)=>{
+			let total2=sales_count(i)*buger.price;//각각의 모든 버거들의 판매수량*버거금액
+			
+			//3. 비교
+			if(total < total2){rank++}//만약에 인덱스 번째 버거의 매출액이(total) 모든버거의 매출액을 구하고있는 total2보다 작으면 랭크를 올려라
+			
+		})
 
+return rank;
 
-
-
-
-
+}
 
 
 
