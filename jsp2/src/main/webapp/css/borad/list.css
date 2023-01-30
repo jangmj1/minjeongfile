@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+table tr td{
+	white-space: nowrap ; /* 줄바꿈을 해제시킨다 길게 쭉 */
+	overflow: hidden; /* 사이즈 넘쳤을 경우 숨기기 ,안쓰면 자동으로 스크롤이 생기는 경우가 있다*/
+	/* 
+	overflow: hidden
+	overflow: scroll => 말 그대로 스크롤이 생긴다
+	
+	 */
+	
+	text-overflow: ellipsis;
+	/*
+		text-overflow: ellipsis; => 넘친 텍스트를 ...으로 표현
+	
+	  */
+	max-width : 100px;
+	/*
+	 60%를 쓰긴 하지만 100px가 넘는경우에 ...으로 표현 
+	 */
+}

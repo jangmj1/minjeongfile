@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 @font-face {
     font-family: 'RixInooAriDuriR';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
@@ -12,9 +14,10 @@
 	margin: 0px;
 	padding: 0px;
 	color: black;
+	
 }
 
-
+a{color:black!important;text-decoration: none!important;}
 
 .logobox{/* 로고구역 */
 	text-align: center; 
@@ -55,7 +58,9 @@
 	width: 18%;	
 	margin: 0 auto;
 	padding-top: 10%;
-	padding-bottom: 1%
+	padding-bottom: 1%;
+	margin-bottom: 50px;
+	
 }
 
 /* 서로 다른 px마다 css 다르게 설정=> 미디어쿼리 */

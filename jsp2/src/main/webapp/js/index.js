@@ -7,6 +7,7 @@ let productList=[
 	{img:'해물토마토파스타.png',title:'해물토마토파스타',size:'1~2인용',price:17000,discount:0.25,like:54,review:412}
 ]
 
+
 product_print()
 function product_print(){
 	let html=''
@@ -37,3 +38,5 @@ function product_print(){
 		})		
 			document.querySelector('.itembox').innerHTML=html;
 }
+
+
