@@ -35,7 +35,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">장바구니</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="/jsp2/board/list.html">커뮤니티</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">문의사항</a></li>
+					<li class="nav-item"><a class="nav-link" href="/jsp2/qboard/list.html">문의사항</a></li>
 				</ul>
 			</div>
 		</div>
@@ -76,13 +76,14 @@
 		<h3 class="box_title">문의사항 작성</h3>
 		<form>
 			<div class="row my-3">
-				<div class="col-md-3"><input class="form-control qwiter" type="text" placeholder="작성자"> </div>
-				<div class="col-md-3"><input class="form-control qpassword" type="password" placeholder="비밀번호"> </div>
+				<div class="col-md-3"><input class="form-control qwriter" type="text" placeholder="작성자"> </div>			
+				<div class="col-md-3"><input class="form-control qpassword" type="password" placeholder="비밀번호"> </div>			
 			</div>
 			
 			<input class="form-control my-3 qtitle" type="text" placeholder="제목">
-			<textarea class="form-control my-3" rows="10" cols="" placeholder="내용을 입력하세요"></textarea>
 			
+			<textarea class="form-control my-3 qcontent" rows="10" cols="" placeholder="내용을 작성하세요."></textarea>
+
 			<div class="row">
 				<div class="col-md-3 my-3">
 					<input class="form-control" type="file">
@@ -91,7 +92,7 @@
 		
 			<div class="row col-md-4 offset-md-4">
 				<div class="col-md-4">
-					<button class="form-control" type="button">등록</button>
+					<button class="form-control" onclick="qboard_wirte()" type="button">등록</button>
 				</div>
 				<div  class="col-md-4">
 					<button class="form-control" type="reset">취소</button>

@@ -18,7 +18,7 @@ function board_wirte(){
 		let writeform=document.querySelector('.writeform');
 			console.log(writeform)
 		let formdata=new FormData(writeform)
-			console.log(formdata)
+			console.log('formdata',formdata)
 		//*유효성 검사 생력
 	
 	//2. java에게 데이터 전송후 전송된 결과를 받는다.[통신-AJAX 등..]

@@ -12,6 +12,7 @@ product_print()
 function product_print(){
 	let html=''
 	productList.forEach((o,i)=>{
+	
 	 html+=`<div class="item">
 				<img class="img" src="img/${o.img}"><!-- 제품 이미지1 -->
 				<div class="item_info"><!-- 제품정보 -->
@@ -36,7 +37,7 @@ function product_print(){
 			
 			
 		})		
-			document.querySelector('.itembox').innerHTML=html;
+			document.querySelector('.itembox').innerHTML=html
 }
 
 
