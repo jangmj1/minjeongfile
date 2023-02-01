@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.title{
+	text-align: center;
+}
+.signup_form{
+	width: 600px; /*폼의 크기*/
+	margin: 0 auto; /*폼의 센터정렬*/
+	border-top:solid 2px red; /*윗줄 빨간줄*/
+	border-bottom: solid 2px red;  /*아랫줄 빨간줄*/
+	padding: 30px; /*폼 안쪽 간격 여유롭게*/
+}
+.colums li{display: inline-block;} /* 아이디 행을 나란히 나열*/
+.signup_box li{list-style-type: none;} /* 검정색 땡땡땡을 삭제*/
+.colums {padding: 5px;}
+.colums .col1{width: 150px;} /*"아이디" 간격 넓히기*/
+.colums .col2 input{width: 250px; height: 20px;} /*텍스트 창 넓히기*/
+.colums .col3 select{width: 100px;height: 30px;}
+textarea {resize: none;}
+.btn_box{ text-align:right}
+.btn_box input{ 
+	padding: 10px 20px;
+	margin: 10px 10px 0px 0px;
+	}
+.hello{vertical-align:top;} /*세로정렬  참고로 가로정렬은 text-align*/
+.signup_form1{
+	width: 600px;
+	margin: 0 auto;
+	}
+

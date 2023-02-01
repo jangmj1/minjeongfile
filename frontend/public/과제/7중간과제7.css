@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+
+.book_img{
+	width: 300px;
+} /*해당 이미지만 적용 시키기 위해 클래스 이름으로 지정함*/
+ /* *{}하지않은 이유 :전체 다 적용되기 때문 */
+
+
+.title_no{
+	color:  orange;
+	font-size: 40px;
+	}
+	
+.contents{
+	background-color:#0f6878;
+	width: 500px;
+	padding: 20px;
+	color: white;
+	line-height: 150%;
+}
+.cont_ef	{
+	color: orange;
+	font-size: bol; /*진하게*/
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

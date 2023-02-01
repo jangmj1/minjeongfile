@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+
+
+*{color: write;}
+
+.wrap{display:flex;}
+
+.content{
+		width:50%;
+		border: 1px solid black;
+		text-align: center;
+		padding: 20px;
+}
+.class{display:block;}
+
+.b_list,.표{
+	text-align: center;margin: 0 auto;} 

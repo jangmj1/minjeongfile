@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.write_box{
+	width: 700px;
+	margin: 0 auto;
+	/*border: solid;*/
+
+}
+.write_t{
+	/*border: solid red;*/
+	border-top:solid 3px black; 
+	width: 700px;
+	
+}
+.write_t td{
+	border-bottom: solid 1px #eeeeee;
+	padding: 5px;
+}
+.write_t input {
+	width: 500px;height: 25px;
+}
+.write_t textarea{
+	width: 500px;height: 100px;
+	resize: none;
+}
+.btn_box{
+	/*border: solid orange;*/
+	text-align: right;
+}
+.btn_box input{
+	width: 100px;height:40px;
+	padding: 5px 20px;
+	margin: 20px 5px;
+	text-align: center;
+}
+
+

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+/*1.모든 곳에 적용,어려개속성*/
+*{
+	font-family:"궁서";/*글꼴*/
+  color: blue;/*색상*/
+   }
+
+h3{
+	text-decoration: overline line-through underline;
+	/*줄*/			/*윗줄*/	  /*취소선*/		/*아래선*/
+	text-shadow: 2px 2px 2px gray;
+	/*그림자*/    /*x,y,흐림정도 색상*/
+	text-align: center; /*가운데*/
+	/*center,left,right*/
+}
+
+p{
+	font-family: "굴림";
+	color: black;
+	font-size: 8px; /*사이즈*/
+	font-style: italic; /*기울기*/
+	font-weight: bold; /*굵게 진하게*/
+	word-spacing: 2px; /*단어 간격*/
+	letter-spacing: 1px; /*자간(글자들 마다 간격)*/
+	line-height: 100%; /*줄 간격(%로 쓸것)*/
+	
+}
