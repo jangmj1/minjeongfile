@@ -37,7 +37,7 @@ public class Ex6_비회원게시판 {//c s
 				//new string("유재석"); 이라고 써도 되지만
 				//new string(바이트배열); new String(바이트배열,시작인덱스,마지막인덱스)
 			if( bytecount != -1 ) {  
-				String fStr=new String(inbytes,0,bytecount);//읽어온 바이트 배열을-->문자열로 변환 //배열에서(1000중) 0부터 300까지만 가져와서 문자열로 변환ㄴ
+				String fStr=new String(inbytes,0,bytecount);//읽어온 바이트 배열을-->문자열로 변환 //배열에서(1000중) 0부터 300까지만 가져와서 문자열로 변환
 				
 				String[] boards=fStr.split("\n");//행 기준으로 분리[만약에 게시물이 2개일때 2조각]
 				
