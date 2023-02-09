@@ -18,7 +18,7 @@ public class 실행 { // cs
 			int ch1= scanner.nextInt();
 			if(ch1==1) {//로그인 if 시작
 				System.out.println("아이디:"); String id=scanner.next();
-				System.out.println("비밀번호:"); String pw=scanner.next();
+				System.out.println("비밀번호:"); String pw=scanner.next();							
 				
 				//성공시 밑에 와일문 넣기
 				for(int j=0;j<memberList.size();j++) {//for s
@@ -115,15 +115,19 @@ public class 실행 { // cs
 					//if e	
 					}else if(id.equals(memberList.get(j).id) && !pw.equals(memberList.get(j).pw)) {
 						System.err.println("비밀번호가틀렸습니다.");
+						continue start;
 					}else if(!id.equals(memberList.get(j).id)  && pw.equals(memberList.get(j).pw)) {
 						System.err.println("아이디가 틀렸습니다.");
 						continue start;
 					}
-					//만약에 반복문을 다 돌았을시
-				
-				}//for e
-				
-				
+					
+					
+				}//for e				
+				//만약에 반복문을 다 돌았을시
+				if(memberList.indexOf(id) < 0 && memberList.indexOf(pw) < 0) {
+					System.err.println("회원이 존재하지않습니다.");
+					continue start;
+				}
 			}//로그인 if 끝
 			else if (ch1==2) {//else if s 회원가입
 				System.out.println("아이디:"); String inputId=scanner.next();
