@@ -29,13 +29,13 @@ public	ArrayList<Board> boards=new ArrayList<>();
 	
 	Mcontroller mc=new Mcontroller();
 	//2.삭제함수
-	public int del(int no1 ) {
+	public int del(int no) {
 		for(int i=0;i<mc.memberDb.size();i++) {
-			if(mc.test()==boards.get(no1).writer ) {
+			if(mc.test()==boards.get(no).writer ) {
 				
 				boards.remove(i);
 				return 1; //삭세성공
-			}else if (mc.test()!=mc.memberDb.get(no1).id) {
+			}else if (mc.test()!=mc.memberDb.get(no).id) {
 				return 2;//삭제실패
 			}
 		}return 0;

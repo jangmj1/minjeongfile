@@ -177,22 +177,31 @@ public class Front {
 		
 		System.out.println("1.글삭제 2.글수정 3.뒤로가기"); int no1=scanner.nextInt();
 		
-		if(no1==1) {//만약 삭제를 눌렀을시.. 여기서부터 문제
+		if(no1==1) {//1. 글삭제 만약 삭제를 눌렀을시.. 여기서부터 문제 if s
 			
+			System.out.println("삭제하시겠습니다? 1.예 2.아니요"); int no2=scanner.nextInt();
 			
-			int result=bc.del(no1);
-			
-			if(result==1) {
-				System.out.println("해당 게시글을 삭제하였습니다.");
+			if(no2==1) {//삭제시작
 				
-			}
-			else if(result==2) {
-				System.out.println("해당 게시글을 삭제할 권한이 없습니다.");
-			}
-			
-			else if(result==0) {//뒤로가기
+				int result=bc.del(no);
+				
+				if(result==1) {
+					System.out.println("해당 게시글을 삭제하였습니다.");
+					
+				}
+				else if(result==2) {
+					System.out.println("해당 게시글을 삭제할 권한이 없습니다.");
+				}
+			}// 삭제끝	
+			else if (no2==2) {//2.아니요 s
 				afterLogin();
-				}// 뒤로가기끝	
+			}//2.아니요 e
+			
+		}//if e
+		else if (no1==2) {//2.글수정
+			
+		}else if (no1==3) {//2.뒤로가기
+			afterLogin();
 		}
 		
 		
