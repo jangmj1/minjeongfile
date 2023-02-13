@@ -135,7 +135,7 @@ public class Front {
 	}//로그인 성공화면e
  
 	
-	public void afterLogin(){
+	public void afterLogin(){//게시글들쓰기 및 출력
 		System.out.println(" ---------- 글 쓰기 ---------------");
 		System.out.println("제목:"); String title=scanner.next();
 		System.out.println("내용:");	String content=scanner.next();
@@ -164,15 +164,12 @@ public class Front {
 		
 		
 		int no=scanner.nextInt();
-		for(int i=0;i<bc.boards.size();i++) {//글보기
-			if(no==i) {
-				System.out.println("제목 :"+bc.boards.get(i).title);
-				System.out.println("작성자 :"+bc.boards.get(i).writer);
-				System.out.println("내용 :"+bc.boards.get(i).content);
-				bc.boards.get(i).count++;
-				System.out.println("조회수 :"+bc.boards.get(i).count);
-			}
-		}
+		
+				System.out.println("제목 :"+bc.boards.get(no).title);
+				System.out.println("작성자 :"+bc.boards.get(no).writer);
+				System.out.println("내용 :"+bc.boards.get(no).content);
+				bc.boards.get(no).count++;
+			
 		
 		
 		System.out.println("1.글삭제 2.글수정 3.뒤로가기"); int no1=scanner.nextInt();
@@ -183,25 +180,35 @@ public class Front {
 			
 			if(no2==1) {//삭제시작
 				
-				int result=bc.del(no);
+				int result=bc.del(no,mc.test());
 				
 				if(result==1) {
 					System.out.println("해당 게시글을 삭제하였습니다.");
 					
+					
 				}
 				else if(result==2) {
 					System.out.println("해당 게시글을 삭제할 권한이 없습니다.");
+					
 				}
 			}// 삭제끝	
 			else if (no2==2) {//2.아니요 s
-				afterLogin();
+				//삭제 안할꺼면 아무것도 없음
 			}//2.아니요 e
 			
 		}//if e
 		else if (no1==2) {//2.글수정
+			System.out.println("수정할내용:");	String changeContent=scanner.next();
+			int result=bc.change(no, mc.test(), changeContent);
+			if(result==0) {
+				System.out.println("글수정 성공");
+			}else if (result==-1) {
+				System.out.println("해당 게시글을 수정할 권한이 없습니다.");
+			}
+			
 			
 		}else if (no1==3) {//2.뒤로가기
-			afterLogin();
+			enter();
 		}
 		
 		

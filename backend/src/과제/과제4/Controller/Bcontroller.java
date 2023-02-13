@@ -27,20 +27,37 @@ public	ArrayList<Board> boards=new ArrayList<>();
 		
 	}
 	
-	Mcontroller mc=new Mcontroller();
+
 	//2.삭제함수
-	public int del(int no) {
-		for(int i=0;i<mc.memberDb.size();i++) {
-			if(mc.test()==boards.get(no).writer ) {
+	public int del(int no, String writer) {//del s
+			if(writer.equals(boards.get(no).writer)) {
 				
-				boards.remove(i);
+				boards.remove(no);
 				return 1; //삭세성공
-			}else if (mc.test()!=mc.memberDb.get(no).id) {
+			}else  {
 				return 2;//삭제실패
 			}
-		}return 0;
+			
+	}//del e
+
+	
+	public int change (int no,String writer,String newcontent) {
+		if(writer.equals(boards.get(no).writer)) {
+			
+			boards.get(no).content=newcontent;
+			return 0;
+			
+		}else {
+			return -1;
+		}
 	}
 	
 	
-
+	
+	
+	
+	
+	
 }
+
+	
