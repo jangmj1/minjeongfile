@@ -19,7 +19,7 @@ public class 실행 {
 		
 		HankookTire hankookTire=new HankookTire();
 			HankookTire result2=(HankookTire)myCar.parking(hankookTire);
-			System.out.println(result2 instanceof Tire);
+			System.out.println(result2 instanceof HankookTire);
 			System.out.println(result2 instanceof Object);
 			
 		//4.금호 타이어 교체

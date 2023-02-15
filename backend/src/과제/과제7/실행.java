@@ -8,12 +8,25 @@ public class 실행 {
 		
 		
 		 Scanner scanner=new Scanner(System.in );
+		 Bank bank=new Bank();
+		 
 		 while (true) {
-			 
-			 int ch
-			 
+			
 			 System.out.println("1.우리 2.신한 3.국민");
-			 if()
+			 
+			 int ch=scanner.nextInt();
+			 
+			 
+			 if(ch==1) {
+				 bank.join();
+				
+			 }else if (ch==2) {
+				
+			}else if (ch==3) {
+				
+			}else {
+				System.out.println("없는은행정보 입니다.");
+			}
 			 
 			 
 			
