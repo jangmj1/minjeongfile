@@ -18,8 +18,8 @@ public class 실행 {
 			 
 			 
 			 if(ch==1) {
-				 bank.join();
-				
+				 Kb kb= (Kb)bank;
+				 kb.join();
 			 }else if (ch==2) {
 				
 			}else if (ch==3) {
