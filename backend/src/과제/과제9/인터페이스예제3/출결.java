@@ -1,4 +1,4 @@
-package 과제.과제9.회사;
+package 과제.과제9.인터페이스예제3;
 
 import java.util.Scanner;
 
