@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Insert;
 
-public class 과제10 {
+public class Db과제1 {
 	public static void main(String[] args) {
 		
 		
