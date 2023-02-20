@@ -19,6 +19,27 @@ public class 실행 {
 		 public void index() {
 			while (true) {
 				System.out.println("1.딤채냉장고 2.엘지냉장고 3. 삼성냉장고");
+				
+				for( int i = 0 ; i<냉장고Db.size(); i++ ) {
+					
+					if( 냉장고Db.get(i) instanceof 딤채냉장고 ) {
+						딤채냉장고 temp = (딤채냉장고)냉장고Db.get(i);
+						System.out.println( temp.도어 );
+					}
+					if( 냉장고Db.get(i) instanceof 삼성냉장고 ) {
+						삼성냉장고 temp = (삼성냉장고)냉장고Db.get(i);
+						System.out.println( temp.도어 );
+					}
+					if( 냉장고Db.get(i) instanceof 엘지냉장고 ) {
+						엘지냉장고 temp = (엘지냉장고)냉장고Db.get(i);
+						
+					}
+					
+					
+				}
+				
+				
+				
 				int ch=scanner.nextInt();
 				if(ch==1) {
 					딤채냉장고 딤채냉장고=new 딤채냉장고();
@@ -26,7 +47,6 @@ public class 실행 {
 					냉장고Db.add(딤채냉장고);
 					System.out.println("등록이 완료 되었습니다");
 					//냉장고 db 안에 도어가 들어갔는지 확인불가 아마도 자료형이 냉장고인것같다  ??
-					
 					
 					
 				}else if ( ch==2) {
