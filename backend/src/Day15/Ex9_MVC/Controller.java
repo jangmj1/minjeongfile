@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Controller {
 	
-	//싱글통
+	//싱글톤
 	
 	private static Controller controller=new Controller();
 	private Controller () {};
@@ -29,6 +29,36 @@ public class Controller {
 	
 	//2.모든 회원 출력 [인수 : x ,반환 : 여러명 ArrayList<>]
 	public ArrayList<MemberDto> list() {
-		return null;
+		
+		
+		//1.dao에게 요청->모든 회원들 호출하는 DAO메소드 호출해서 결과 얻기
+		ArrayList<MemberDto> result=MemberDao.getInstance().list();
+		
+		
+		return result;//뷰에서 여기함수를 호출함 회원리스트값을 보내줌
+		
+		
 	}
+	
+	public boolean Update(int mno, String mpw) {
+		return MemberDao.getInstance().Update(mno, mpw);
+		
+		
+	}
+	
+	public boolean delete(int mno) {
+		return MemberDao.getInstance().delete(mno);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
