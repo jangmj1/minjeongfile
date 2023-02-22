@@ -187,11 +187,30 @@ public class ProductDao {
 			//4.sql실행
 			rs=ps.executeQuery();
 			
+			
+			
 			while (rs.next()) {
 				ProductDto dto=new ProductDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+				
 				cart.add(dto);
+				
 			}
+			
+			//수량 뺴기.. 이게아니면   "update product set pinven= pinven-1 where pmo=?;" <이걸로 가는걸까?
+			
+			for(int i=0;i<cart.size();i++) {
+				if(ch==cart.get(i).getPno()) {
+					int 남은수량 = cart.get(i).getPinven();
+					남은수량--;
+					System.out.println("냉장고의남은수량은"+남은수량);
+				}
+			
+			}
+			
+			
 			return cart;
+			
+			
 			
 			
 			
@@ -208,6 +227,7 @@ public class ProductDao {
 	}
 	
 	
+/******************************************************************/		
 	
 	
 	

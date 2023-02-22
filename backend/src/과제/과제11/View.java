@@ -55,7 +55,7 @@ public class View {
 			System.out.println("번호를 선택하시면 장바구니가 등록됩니다. 결제를 원하시면 0번를 눌러주세요");
 			int ch=scanner.nextInt();
 			cart(ch);
-			if(ch==0) {}
+			if(ch==0) {  pay();}
 			
 			
 			}
@@ -189,6 +189,34 @@ public class View {
 	public void cart(int ch){
 		ArrayList<ProductDto> result=Controller.getInstance().cart(ch);
 		System.out.println("장바구니수량"+result.size());
+		
+		
+		
+		/*ArrayList<ProductDto> inven=Controller.getInstance().list();
+		int afterInven=inven.get(0).getPinven();
+		afterInven--;*/
+		
+		
 	}
+	public void pay(){
+		ArrayList<ProductDto> result=Controller.getInstance().cart(0);
+		System.out.println("------------------결제창-----------------");
+		for(int i=0;i<result.size();i++) {
+			System.out.printf(
+					
+					"%2d \t %5s \t %5s  \t %5s \n",
+					result.get(i).getPno(),
+					result.get(i).getPname(),
+					result.get(i).getPprice(),
+					"1개"
+					);
+		}
+		System.out.println(">>>>>>>>>>>>결제완료!!<<<<<<<<<<");
+		
+		
+	}
+	
+	
+	
 
 }
