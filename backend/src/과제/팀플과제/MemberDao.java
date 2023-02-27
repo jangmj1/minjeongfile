@@ -15,6 +15,8 @@ public class MemberDao {
 	//싱글톤
 	private static MemberDao dao=new MemberDao();
 	private Connection conn;
+	private PreparedStatement ps;
+	ResultSet rs;
 	
 	private MemberDao() {
 		try {
@@ -31,10 +33,7 @@ public class MemberDao {
 	public static MemberDao getInstance() {
 		return dao;
 	}
-	
-	private PreparedStatement ps;
-	ResultSet rs;
-	
+/*****************************************************************************************/	
 	Scanner scanner=new Scanner(System.in);
 
 	 ArrayList<회원>회원DB=new ArrayList<>();
