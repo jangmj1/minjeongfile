@@ -1,4 +1,4 @@
-package jspweb.Index;
+package practice.day01;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
