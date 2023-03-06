@@ -49,7 +49,6 @@ public class Ex2_2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//JS요청 객체
 		request.setCharacterEncoding("UTF-8"); //한글로 받기
-		System.out.println("ㅎㅎㅎ");
 		
 		//2.
 		String data11=request.getParameter("data11");
