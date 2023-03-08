@@ -67,7 +67,7 @@ update ex4 set pproduct='선풍기', pprice='100만원' where pno=4;
 drop table if exists member;
 create table member(
 mno int auto_increment primary key,
-min varchar(30)not null unique, -- 회원 아이디 not null:공백불가  unique:중복불가
+mid varchar(30)not null unique, -- 회원 아이디 not null:공백불가  unique:중복불가
 mpwd varchar(20)not null, -- 회원 비밀번호 not null:공백불가
 mimg longtext , -- 웹 서버에 저장된 사진 경로 공백 가능
 memail varchar(100)
@@ -92,6 +92,7 @@ mdate datetime default now(), -- 포인트 내역 날짜
 mno int, -- 포인트 받는 회원
 foreign key(mno) references member (mno) on delete set null -- 회원이 탈퇴하면 포인트 없어짐
 );
+select * from member; 
 
 
   
