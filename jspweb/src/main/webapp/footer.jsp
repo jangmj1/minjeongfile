@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file = "/header.jsp" %> <!-- header 를 같이 연것 jsp 페이지 포함 -->
-	<h3>대문입니다.</h3>
-	
-	<%@ include file="/footer.jsp" %>
+	<h3>푸터입니다.</h3>
 </body>
 </html>

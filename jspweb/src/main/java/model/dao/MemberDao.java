@@ -78,5 +78,72 @@ public class MemberDao extends Dao{
 		}return false; //만약에 검색 결과가 없으면 중복이 아니다
 		
 	}
+	
+	public boolean login(String mid, String mpwd) {
+		String sql="select * from member where mid=? and mpwd=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, mid);
+			ps.setString(2, mpwd);
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+	}
+	
+	
+	
+	public MemberDto getMember(String mid){
+		String sql="select*from member where mid=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, mid);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				MemberDto dto=new MemberDto(rs.getInt(1), rs.getString(2),
+						null, rs.getString(4), rs.getString(3)); //비밀번호는 가져오면안되서 null
+				return dto; //로그인 하면 정보가 비번빼고 넘어감
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return null; //없다
+		
+		
+		
+		
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

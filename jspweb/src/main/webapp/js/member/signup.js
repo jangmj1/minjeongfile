@@ -1,4 +1,4 @@
-//console.log('하이')
+console.log('하이')
 
 /*
 	JS정규 표현식 : 문자의 특정 규칙 , 패턴 , 집합 표현할때 사용되는 언어
@@ -16,6 +16,24 @@
 			[a-zA-Z0-9] -- 영문+숫자입력
 			[a-zA-Z0-9가-힣] -- 영문+숫자+한글입력
 			
+			---
+			1개 이상 문자가 포함되어야 하는 경우
+			(?=.*[a-z]) 	:소문자 한개 이상 입력
+			(?=.*[A-Z]) 	:대문자 한개 이상 입력
+			(?=.*[0-9]) 	:숫자 한개 이상 입력
+			(?=.*[!@#$%^*]) :특수문자 한개 이상 입력
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/
+			
+			1.(?=.*[A-Za-z])		:영대소문자 한개 이상 입력
+			2.(?=.*\d) OR (?=.*[0-9])	:숫자 한개 이상 입력
+			3.[A-Za-z\d] OR [A-Za-z0-9]	:영문 + 숫자
+			==>영문1개 숫자 1개 필수를 갖는 5~20글자 사이
+			
+			/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{5,20}$/
+			==>영대문자1개 + 영소문자1개+숫자1개를 필수로 갖는 5~20글자
+			
+			
+			
 			--패턴 검사 해주는 함수가..
 				정규표현식.test(데이터) : 패턴이 적합하면 true/아니면 false
 				
@@ -24,6 +42,34 @@
 				/^[a-z]$/.test(QWE) -->false  : QWE가 대문자
 
 */
+//*첨부파일 이미지 미리보기[업로드와 상관없음]
+	//사용자[클라이언트]에 
+function premimg(object){ //여기서 object는 프로필 인풋박스
+	console.log('첨부파일 바뀜:'+object);
+	console.log(object.files[0]);	//현재 이벤트 실행된 input의 등록한 파일명 호출
+	
+	//해당 클래스의 인풋에 등록한 파일명 호출
+	console.log(document.querySelector('.mimg').files[0])
+	//1.js 파일클래스를 이용해서 파일의 정보를 갖고오기
+	let file=new FileReader(); //파일 읽기 클래스
+	
+	//2.해당 첨부된 파일 읽어오기(file.readAsDataURL(첨부파일))
+	file.readAsDataURL(object.files[0])	//해당 파일 읽어오기 files[0] 0쓰는 이유 첨부파일은 한개이기때문에
+	
+	//3.읽어온 파일을 꺼내기 => byte식으로 꺼내온다 콘솔찍어보면 이상한게나옴
+	file.onload=(e)=>{//파일을 꺼내서 읽는다
+		console.log(e.target.result)
+		//e.target => file.onload : 읽어온 파일
+		//e.target.result => 읽어온 파일의 바이트 결과
+		//4.이미지 테그의 src 에다가 이미지 바이트 대입
+		document.querySelector('.premimg').src=e.target.result;
+	}
+	
+
+}
+
+//1.checkconfirm span 모두가져오기 => 여러개의 스팬이 배열/리스트 객체에 담긴다
+let checkconfirm = document.querySelectorAll('.checkconfirm')
 
 //아이디 유효성검사[1.문자체크 2.중복검사]
 function idcheck(){
@@ -49,16 +95,16 @@ function idcheck(){
 				console.log('통신완료');
 				console.log(r)
 				if(r=='true'){
-					document.querySelector('.idcheckconfirm').innerHTML='사용중인 아이디 입니다.';
+					checkconfirm[0].innerHTML='x';
 				}else{
-					document.querySelector('.idcheckconfirm').innerHTML='사용 가능한 아이디.';
+					checkconfirm[0].innerHTML='O';
 					
 				}
 			}
 		})
 		
 	}else{
-		document.querySelector('.idcheckconfirm').innerHTML='영소문자+숫자 조합 5~30사이로 입력해주세요!'
+		checkconfirm[0].innerHTML='영소문자+숫자 조합 5~30사이로 입력해주세요!'
 	}
 	
 	
@@ -68,6 +114,15 @@ function idcheck(){
 
 //회원가입
 function signup(){
+	//*유효성 검사에 대한 체크
+	let count=0;
+	for(let i=0;i<checkconfirm.length;i++){
+		if(checkconfirm[i].innerHTML=='O'){count++}
+	}
+	if(count!=3){
+		alert('정상적으로 입력되지 않은 데이터가있습니다');return;
+	}
+	
 	//console.log('함수열림')
 	//첨부파일이 없을때에 입력받은 값 모두 가쟈와서 객체화
 	
@@ -98,6 +153,68 @@ function signup(){
 			 }
 		}
 	})
+	
+}
+	//3.비밀번호 유효성 검사
+	function pwdcheck(){
+		console.log('비번유효성')
+		let mpwd=document.querySelector('.mpwd').value;
+		console.log('mpwd'+mpwd)
+		
+		let mpwdj=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/
+		//정규표현식 : 영대소문자+숫자 조합  5~20 글자
+		
+		console.log(mpwdj.test(mpwd))
+		
+		//3.제어
+		if(mpwdj.test(mpwd)){
+			checkconfirm[1].innerHTML='O';pwdconfromcheck();
+		}else {
+			checkconfirm[1].innerHTML='영대소문자+숫자 조합 5~20 글자'
+		}
+	}
+	
+	//4.비밀번호 유효성 검사
+	function pwdconfromcheck(){
+		console.log(' 재확인')
+		
+		let mpwd=document.querySelector('.mpwd').value;
+		let mpwdconfirm=document.querySelector('.mpwdconfirm').value;
+			console.log(mpwdconfirm);
+		let mpwdj=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/
+		if(mpwdj.test(mpwdconfirm)){
+			//두 비밀번호간의 동일성 체크
+			if(mpwd!=mpwdconfirm){
+				checkconfirm[1].innerHTML='X'
+			}else{
+				
+				checkconfirm[1].innerHTML='O'
+			}
+		}else{
+			
+				checkconfirm[1].innerHTML='영대소문자+숫자 조합 5~20 글자'
+		}
+	}
+	
+	function emailcheck(){
+		let memail=document.querySelector('.memail').value;
+		let memailj=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/ 	//아이디구간
+			///^[a-zA-Z0-9]$/ : 영문+숫자
+			///^[a-zA-Z0-9_]$/ : 영문+숫자+_+-
+			//아이디와 도메인 사이의@ 무조건 들어가겠다 플러스+넣어라		//도메인구간	
+			//[a-zA-Z0-9-]		:영문+숫자+-(도메인)		    namer
+			//+\.				: 쩜! 이 무조건 들어간다		  .
+			//[a-zA-Z0-9-]		:영문 + 숫자 + -			com
+			//+					: .						naver.co.kr
+			console.log(memailj.test(memail));
+			if(memailj.test(memail)){
+				
+				checkconfirm[2].innerHTML='O'
+			}else{
+				checkconfirm[2].innerHTML='X'
+				
+			}
+	}
 
 
 
@@ -132,4 +249,3 @@ function signup(){
 	 })
 	 
 	 */
-}
