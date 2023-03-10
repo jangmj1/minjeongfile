@@ -118,7 +118,55 @@ public class MemberDao extends Dao{
 		
 		
 	}
+	
+	//아이디찾기함수
+	public String findid(String memail) {
+		
+		String sql="select mid from member where memail=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, memail);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "false";
+		
+	}
 
+	//비밀번호찾기함수
+	public String findpwd(String memail,String mid, String updatepwd ) {
+		String sql="select mno from member where memail=? and mid=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, memail);
+			ps.setString(2, mid);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				sql="update member set mpwd=? where mno=?" ; // 비밀번호가 나오면! 회원 정보가 있으면..
+				ps=con.prepareStatement(sql);
+				ps.setString(1, updatepwd);
+				ps.setInt(2, rs.getInt(1));
+				int result=ps.executeUpdate(); //업데이트한 레코드 개수 반환
+				if(result==1) { // 업데이트 한 레코드가 1개이면
+					new MemberDto().sendEmail(memail, updatepwd);
+					return "true";
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "false";
+		
+	}
 	
 	
 	

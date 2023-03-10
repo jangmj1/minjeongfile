@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
 			//request.getSession() : 서버[톰캣] 내 세션 객체 호출
 			//setAttribute("key", value); :서버[톰캣] 내 세션객체에 속성[데이터]추가(저장) 반대는 getAttribute
 			
-			//세션내에 login 이라는 이름으로 로그인 성공한 데이터 저장 
+			//세션내에 login 이라는 이름으로 로그인 성공한 데이터 저장  (오브젝트 자료형이라 모든걸 다넣을수있다)
 			request.getSession().setAttribute("login", mid);
 		}
 		

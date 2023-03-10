@@ -196,7 +196,7 @@ function signup(){
 		}
 	}
 	
-	function emailcheck(){
+	function emailcheck(){//5.이메일 유효성 검사
 		let memail=document.querySelector('.memail').value;
 		let memailj=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/ 	//아이디구간
 			///^[a-zA-Z0-9]$/ : 영문+숫자
@@ -209,17 +209,96 @@ function signup(){
 			console.log(memailj.test(memail));
 			if(memailj.test(memail)){
 				
-				checkconfirm[2].innerHTML='O'
+				checkconfirm[2].innerHTML='이메일 형식이 맞습니다. 인증을 해주세요'
+				document.querySelector('.authbtn').disabled=false;	//형식이 맞으면 인증 버튼을 사용하겠다
 			}else{
 				checkconfirm[2].innerHTML='X'
+				document.querySelector('.authbtn').disabled=true; //형식이 틀리면 인증 버튼을 사용안하겠다
 				
 			}
 	}
 
 
 
+//6.이메일 인증 함수
+	function getauth(){ // 인증 버튼을 눌렀을때 밑에가 실행 
+		//* ajax JAVA 에게 이메일 전송후 인증 코드 받기;
+		$.ajax({
+			url : "/jspweb/email",
+			method:"post",
+			data:{"memail":document.querySelector('.memail').value},
+			success:(r)=>{
+				console.log('성공접속')
+				console.log(r)
+			}
+			
+		})
+	
+		console.log("apapap")
+		
+		let html=`
+				<div class="timebox"></div>
+				<input placeholder="인증코드" type="text" class="autboxinput">
+				<button onclick="authconfirm()" class="authconfirmbtn"  type="button">확인</button>`
+				
+		//2. html 대입
+		document.querySelector('.authbox').innerHTML=html;
+		
+		//3. 타이머 함수 실행 : 
+		auth=1234;	 // 인증 코드 대입 [이메일에게 보낸 난수 대입]
+		timer=120;	 // 인증 시간 대입 5초
+		settimer();	 // 인증 시간 대입
+	}
+let timer=0; // 인증시간
+let timerInter ; //Interver 함수를 저장할 변수
+let auth=0;	
+//7.타이머함수
+ function settimer(){
+	 
+	 //setInterval ( ()=>{} , 시간/밀리초) : 특정 시간 마다 함수를 실행 
+	timerInter= setInterval ( ()=>{ 
+		 let minutes = parseInt(timer / 60 );  //분 하나 초 하나 만들기=> 분 계산
+		 let seconds = parseInt(timer % 60); 	//분 계산후 나머지가 초
+		 
+		 minutes = minutes < 10 ? "0"+minutes : minutes //3항 연산자
+		 seconds = seconds < 10 ? "0"+seconds : seconds //3항 연산자
+		 
+		 //시간 구성
+		 let timehtml=minutes + ":" + seconds;
+		 	console.log(timehtml)
+		 	
+		//html 대입
+		document.querySelector('.timebox').innerHTML=timehtml;
+		
+		//1초 차감
+		timer--;
+		
+		if(timer<0){
+			clearInterval(timerInter);
+			checkconfirm[2].innerHTML='인증 실패'
+			document.querySelector('.authbox').innerHTML=""; // 인증 실패하면 authbox를 숨겨라 즉 html을 없애라
+			
+		}
+	 } , 1000); // 1초 (1000) 마다 {} 안이 실행된다
+ }
 
+//8. 인증코드확인
+function authconfirm(){
+	//1. 입력받은 인증 코드 호출
+	let autboxinput=	document.querySelector('.autboxinput').value;
+	if(autboxinput==auth) {
+		clearInterval(timerInter);
+		document.querySelector('.authbox').innerHTML=""; 
+		document.querySelector('.authbtn').innerHTML="완료";
+		document.querySelector('.authbtn').disabled=true;
+		checkconfirm[2].innerHTML='인증성공!'
+		//인증코드일치
+	}else {
+		//인증코드불일치
+		checkconfirm[2].innerHTML='인증코드가 틀립니다.'
+	}
 
+}
 
 /*	첨부파일이 없을때!!!!!
 	let info={

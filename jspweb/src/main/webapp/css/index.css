@@ -1,12 +1,60 @@
 @charset "UTF-8";
-
+*{
+	margin: 0px; padding: 0px;
+	list-style-type: none;
+	
+}
+a{
+	color: black;
+	text-decoration: none;
+}
 /*헤더 css*/
+.header{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 20px 0px;
+}
+
+@font-face {
+    font-family: 'KCC-Ganpan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.mainLogo{ width: 10%;}
+.mainLogo img{width: 100%}
+.mainmenu{
+	width: 70%;
+	display: flex;
+	justify-content: center;
+	margin: 0px !important;
+	font-family: 'KCC-Ganpan';
+	font-size: 20px;
+	}
+
+.header li{margin: 10px;}
+.submenu{ 
+	width: 20%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	}
+.submenu a{ margin-left: 15px;}
 
 /*헤더 로그인 프로필*/
 .hpimg{
+	
  	width:  50px;
- 	height: 30px;
+ 	height: 50px;
  	border: solid 1px #e8e8e8;
  	border-radius:50%; 
  	
 }
+.hpimghtn{
+	border: none;
+	background-color: transparent;
+}
+
