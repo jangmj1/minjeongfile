@@ -158,7 +158,7 @@ public class Info extends HttpServlet {
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//수정함수
 		
 		//1.업로드 코드 구현(첨부파일 있을때)
 		String path=request.getSession().getServletContext().getRealPath("/member/pimg");

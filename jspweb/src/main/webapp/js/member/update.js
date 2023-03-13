@@ -1,5 +1,5 @@
 
-if(memberInfo.mid==null){
+if(memberInfo.mid==null){//memberInfo 는 header.js에서 생긴애임 여기안에 멤버dto정보가 들어가있따
 	alert('로그인하고오세요');
 	location.href="/jspweb/member/login.jsp"
 }
@@ -8,8 +8,8 @@ document.querySelector('.mid').innderinnerHTML=memberInfo.mid;
 document.querySelector('.memail').value=memberInfo.memail;
 document.querySelector('.mimg').src=`/jspweb/member/pimg/${ memberInfo.mimg == null ? 'default.webp':memberInfo.mimg }`
 
-function setUpdate(){
-	//첨부파일이 있을때
+function setUpdate(){//첨부파일이있을경우의 회원수정함수
+	//첨부파일이 있을때 form 을 전체다 가져온다
 	
 	let updateForm = document.querySelectorAll('.updateForm')[0];
 	let updateFormData = new FormData(updateForm);
