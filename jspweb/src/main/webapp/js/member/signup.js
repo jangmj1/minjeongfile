@@ -146,8 +146,8 @@ function signup(){
 			console.log('ajax응답')
 			console.log(r)
 			 if(r=='true'){
-				 alert('회원가입 성공');
-				 location.href="/jspweb/index.jsp"
+				 openModal();
+				
 			 }else{
 				 alert('회원가입 실패')
 			 }
@@ -291,7 +291,7 @@ function authconfirm(){
 		document.querySelector('.authbox').innerHTML=""; 
 		document.querySelector('.authbtn').innerHTML="완료";
 		document.querySelector('.authbtn').disabled=true;
-		checkconfirm[2].innerHTML='인증성공!'
+		checkconfirm[2].innerHTML='O'
 		//인증코드일치
 	}else {
 		//인증코드불일치

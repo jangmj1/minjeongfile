@@ -17,7 +17,18 @@ public class MemberDto {
 	private String mpwd;
 	private String mimg;
 	private String memail;
+	private int mpoint; // 나중에 넣었음 : db테이블 존재하지않음
 	
+	
+	
+	public int getMpoint() {
+		return mpoint; //나중에 투입되어서 따로 게터 세터 만듬
+	}
+
+	public void setMpoint(int mpoint) {
+		this.mpoint = mpoint;
+	}
+
 	// 1.이메일 번송 메소드 [받는 사람 이메일,받는 내용 html]
 	public boolean sendEmail(String toEemail, String contentHtml) {
 		//1. 보내는 사람의 정보

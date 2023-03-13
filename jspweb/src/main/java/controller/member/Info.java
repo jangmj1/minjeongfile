@@ -158,12 +158,74 @@ public class Info extends HttpServlet {
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//회원정보수정
-	
+		
+		
+		//1.업로드 코드 구현(첨부파일 있을때)
+		String path=request.getSession().getServletContext().getRealPath("/member/pimg");
+		
+		//2.객체
+		MultipartRequest multi=new MultipartRequest(
+				request,
+				path,
+				1024*1024*10,
+				"UTF-8",
+				new DefaultFileRenamePolicy()
+				);
+		
+		String mid=(String)request.getSession().getAttribute("login");
+		String mpwd = multi.getParameter("mpwd");System.out.println(mpwd);
+		String newpwd = multi.getParameter("newpwd");System.out.println(newpwd);
+		String memail = multi.getParameter("memail");System.out.println(memail);
+		String newmimg = multi.getFilesystemName("newmimg");
+		System.out.println(newmimg);
+		//첨부파일
+		String defaultimg=multi.getParameter("defaultimg"); System.out.println(defaultimg);
+		
+		//3.만약에 첨부파일이 없으면
+		if(newmimg==null) {
+			//기존 이미지 파일을 그래로 사용할것
+			newmimg = MemberDao.getInstance().getMember(mid).getMimg();
+		}
+		if (defaultimg.equals("true")) {
+			newmimg=null;
+		}
+		
+		
+		boolean result=MemberDao.getInstance().update(mid, mpwd, newpwd, memail, newmimg);
+		response.getWriter().print(result);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* 첨부파일 없을때
+		 * //회원정보수정 String mid=(String)request.getSession().getAttribute("login");
+		 * System.out.println("mid:"+mid);
+		 * String mpwd=request.getParameter("mpwd");System.out.println("mpwd:"+mpwd);
+		 * String newpwd=request.getParameter("newpwd");System.out.println("newpwd:"+newpwd);
+		 * String memail=request.getParameter("memail");System.out.println("memail:"+memail);
+		 * 
+		 * 
+		 * boolean result=MemberDao.getInstance().update(mid, mpwd,newpwd, memail);
+		 * response.getWriter().print(result);
+		 */
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//회원탈퇴
+		//로그인이 된 회원이 탈퇴하는것
+		String mpwd= request.getParameter("mpwd");
+		String mid=(String) request.getSession().getAttribute("login");
+			System.out.println("mid"+mid);
+			
+		boolean result=MemberDao.getInstance().delete(mid,mpwd);
+		response.getWriter().print(result);
 	}
 
 }

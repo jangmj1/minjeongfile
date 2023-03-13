@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+	<!-- modal css -->
+	<link href="/jspweb/css/modal.css" rel="stylesheet">
 	
 	<!-- css 부트스트립 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -84,6 +85,8 @@
 	
 	
 	<!-- 모든 페이지 공통 js -->
+	<script src="/jspweb/js/modal.js" type="text/javascript"></script>
+	
 	<!-- jquery -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
