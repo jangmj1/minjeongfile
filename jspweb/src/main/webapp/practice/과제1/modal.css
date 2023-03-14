@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.modal_wrap , .cmodal{
+	background-color: rgba(196,188,188,50%);/*색깔넣어서 구역확인용 */
+	position: fixed; /*fixed 고정위치*/
+	top:0; left:0;  /*왼쪽 상단 위치 설정*/
+	width: 100%; height: 100%; /*모든 화면 감싸기*/
+	display: flex;
+	justify-content: center; align-items: center;
+	
+	 display: none; 
+	
+}
+
+.modal_box , .cmodal_box{
+	background-color: white;
+	width: 30%; padding: 5%;
+	border: 3px solid #1b11de;
+	border-radius: 50px;
+}
+
+.modal_box input{
+	margin: 5px;
+	padding: 3px;
+}
+
+.btn{
+	
+	
+	display: flex;
+	justify-content: center; align-items: center;
+}
+
+.btn button{
+	margin: 10px;
+	padding: 15px;
+}

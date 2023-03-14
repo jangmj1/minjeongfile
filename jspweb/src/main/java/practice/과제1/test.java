@@ -1,4 +1,4 @@
-package practice.day01;
+package practice.과제1;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,35 +7,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class test
- */
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @WebServlet("/test")
 public class test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public test() {
-        super();
-        // TODO Auto-generated constructor stub
+    
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+	 int no=Integer.parseInt(request.getParameter("no"));
+	 
+	MemberDto result = MemberDao.getInstance().oneprint(no);
+	ObjectMapper mapper=new ObjectMapper();
+	String json=mapper.writeValueAsString(result);
+	response.setContentType("application/json");
+	response.setCharacterEncoding("UTF-8");
+	response.getWriter().print(json);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
 	}
 
 }
