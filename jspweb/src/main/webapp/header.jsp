@@ -32,7 +32,7 @@
 			
 			<!-- 본메뉴 -->
 			<ul class="mainmenu">
-				<li><a href="#">기능메뉴1</a> </li>
+				<li><a href="/jspweb/board/list.jsp">커뮤니티</a> </li>
 				<li><a href="#">기능메뉴2</a> </li>
 				<li><a href="#">기능메뉴3</a> </li>
 				<li><a href="#">기능메뉴4</a> </li>
@@ -88,7 +88,7 @@
 	<script src="/jspweb/js/modal.js" type="text/javascript"></script>
 	
 	<!-- jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script> <!-- 아작트 쓰기위한용도 -->
 	
 	<!-- 부트스트립 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

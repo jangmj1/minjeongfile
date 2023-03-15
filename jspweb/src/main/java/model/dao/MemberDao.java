@@ -243,8 +243,22 @@ public class MemberDao extends Dao{
 		}return false;
 	}
 	
-	
-	
+	//11 회원 아이디로 회원 넘버를 반환하는 함수 , 사실 5번 함수를 사용해도됨
+	public int getMno(String mid) {
+		String sql="select mno from member where mid=?";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, mid);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return 0;
+	}
 	
 	
 	
