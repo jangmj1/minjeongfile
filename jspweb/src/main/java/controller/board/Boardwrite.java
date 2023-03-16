@@ -16,6 +16,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import model.dao.MemberDao;
 import model.dao.boardDao;
 import model.dto.boardDto;
+import model.dto.pageDto;
 
 @WebServlet("/board/info")
 public class Boardwrite extends HttpServlet {
@@ -27,19 +28,117 @@ public class Boardwrite extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int type= Integer.parseInt(request.getParameter("type")) ;
-		if(type==1) {
-			//dao 처리
-			ArrayList<boardDto>result= boardDao.getInstance().getboardList();
+		int type=Integer.parseInt(request.getParameter("type")) ;
+		if(type==1) {//1.전체출력
+			
+			//-------------------------카테고리별 출력--------------------------
+			//1. 카테고리 매개변수 요청 [cno]
+			int cno=Integer.parseInt(request.getParameter("cno"));
+			
+			//--------------------------검색처리---------------------------------
+			String key=request.getParameter("key");			///. 
+			String keyword=request.getParameter("keyword");
+			
+			//------------------------------page처리----------------------------
+			//1.현재페이지요청,2.현재페이지[게시물시작,게시물끝]
+			int page=Integer.parseInt(request.getParameter("page")); //page가져오기
+			int listsize=Integer.parseInt(request.getParameter("listsize")); //1page당 출력되는 게시글의 수
+			int startrow= (page-1)*listsize;//해당 페이지에서의 게시물 시작 인!덱!스!번호 구하기
+					
+					/*
+						총 게시물 수 =10개 --> 패이지당 표시할 게시물수 : 3개
+						 ※즉 총 페이지 수 4페이지, (123/456/789/10) 
+						 	
+						 1.페이지별 게시물 시작 번호 찾기
+						 	1페이지 요청-> (1-1)*3 =0
+						 	2페이지 요청-> (2-1)*3 =3
+						 	3페이지 요청-> (3-1)*3 =6
+						
+						2.시작버튼,마지막버튼
+							7페이지일경우
+									s		e
+							1page-->1,2,3,4,5
+							2page-->1,2,3,4,5
+							3page-->1,2,3,4,5
+							4page-->1,2,3,4,5
+							5page-->1,2,3,4,5
+							6page-->6,7
+							7page-->6,7
+						
+					 */
+			
+			//----------------------------------page버튼만들기----------------------
+			//1.전체 페이지수[총게시물수/페이지당 표시수] 2. 페이지 표시할 최대 버튼수 3.시작버튼번호
+				
+	 		/*
+	 		1.전체 페이지수[총게시물수/페이지당 표시수]
+	 		  	총 레코드수/페이지당 표시게수
+		 			1.나머지가 없으면 => 몫
+		 			2.나머지가 있으면 => 몫 + 1 (10/3=3.333 =>4페이지)
+			*/
+				//1.검색이 없을때
+			//int totalsize=boardDao.getInstance().gettotalsize(); //글의 총개수
+			
+				//2.검색이 있을때
+			int totalsize=boardDao.getInstance().gettotalsize(key,keyword,cno); // 글의 모든 총 갯수를 구하는 함수
+			int totalpage=totalsize%listsize==0? //=> 7페이지(버튼): 3항 연산자 사용 글의총갯수에서 3을 나눠서 나머지가없으면
+					totalsize/listsize: //글의 총갯수 나누기 3 
+					totalsize/listsize+1; //글의 총갯수 나누기 3+1
+				//이제 나온  totalpage 값을 ajax로 보내기 위해 result 가 포함된 pageDto하나를 더 만듬
+			
+			//2. 페이지 표시할 최대 버튼수
+			int btnsize=5;//최대 페이징 버튼 출력수
+			int startbtn=((page-1)/btnsize) * btnsize + 1; //시작번호 6페이지가 되면 6,7 만 떠야한다
+				/*
+				 	1page : 1-1/5 *5+1		-> 0*5+1		-> 1
+				 	2page : 2-1/5 *5+1		-> 0*5+1		-> 1
+				 	3page : 3-1/5 *5+1		-> 0*5+1		-> 1
+				 	4page : 4-1/5 *5+1		-> 0*5+1		-> 1
+				 	5page : 5-1/5 *5+1		-> 0*5+1		-> 1
+				 	6page : 6-1/5 *5+1		-> 1*5+1		-> 6
+				 	7page : 7-1/5 *5+1		-> 1*5+1		-> 6
+				 */
+			int endbtn=startbtn+btnsize-1;//끝번호 1+5-1=5 단 마지막 페이지보다 커지면안된다
+				if(endbtn>totalpage) {endbtn=totalpage;}
+				/*
+				 	1page : 1+5-1	-> 5
+				 	2page : 1+5-1	-> 5
+				 	3page : 1+5-1	-> 5
+				 	4page : 1+5-1	-> 5
+				 	5page : 1+5-1	-> 5
+				 	6page : 6+5-1	-> 10	->만약에 endbtnrk가 totalpage 보다 클경우 10=7 ->7
+				 	7page : 6+5-1	-> 10	->만약에 endbtnrk가 totalpage 보다 클경우 10=7 ->7
+				 	
+				 */
+				
+			
+				//dao 처리(한페이지당 페이지 출력되는 함수)-검색이 없을때
+			//ArrayList<boardDto>result= boardDao.getInstance().getboardList(startrow,listsize);
+			
+			//dao 처리(한페이지당 페이지 출력되는 함수)-검색이 있을때
+			ArrayList<boardDto>result= boardDao.getInstance().getboardList(startrow,listsize,key,keyword,cno);
+			
+			//totalpage+result 같이 보내버리기
+				//page Dto 만들기(pageDto 안에 result값을 같이 포함시켜서 새로만듬)=>startbtn,endbtn 추가해서 생성자 다시만듬 ㅜㅜ
+			pageDto pagedto=new pageDto(page, listsize, startrow, totalsize, totalpage, btnsize, startbtn, endbtn, result);
+			//----------------------------------------------------------------------------
+			
+			
+			
+			
+			
+			
+			
+			
 			//형변환
 			ObjectMapper mapper=new ObjectMapper(); //java형태를 js형태로 바꿔주는거
-			String jsonArray =mapper.writeValueAsString(result); //java형태인 result값을 mapper해줌(js로)
+			String jsonArray =mapper.writeValueAsString(pagedto); //java형태인 result값을 mapper해줌(js로)
 			//응답
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			response.getWriter().print(jsonArray);
 			
-		}else if (type==2) {
+		}else if (type==2) {//2.개별출력
 			int bno=Integer.parseInt(request.getParameter("bno"));
 			System.out.println("bno:"+bno);
 			
@@ -93,7 +192,7 @@ public class Boardwrite extends HttpServlet {
 		 int mno=MemberDao.getInstance().getMno(mid);
 		 //dto 만들고
 		 if(mno<=0) {
-			 response.getWriter().print("false"); //??
+			 response.getWriter().print("false");
 		 }
 		 
 		 boardDto dto=new boardDto(btitle, bcontent, bfile, mno, cno);

@@ -30,7 +30,6 @@ public class Filedownload extends HttpServlet {
 		String bfile=request.getParameter("bfile");
 		System.out.println("bfile:"+bfile);
 		
-		
 		//2.파일 다운로드
 			//1.다운 로드할 파일의 경로
 		//String path=request.getSession().getServletContext().getRealPath("/board/bfile");
@@ -83,11 +82,6 @@ public class Filedownload extends HttpServlet {
 				fin.close();	//파일 입력 스트림 객체 닫기(초기화)
 				fout.flush();	//파일 출력 스트림 객체 내 스트림 메모리 초기화
 				fout.close();	//파일 출력 스트림 객체 스트림 닫기
-				
-				
-		
-			
-		
 			
 	}
 
