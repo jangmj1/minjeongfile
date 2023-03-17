@@ -26,6 +26,7 @@ function bwrite(){
 			  console.log(r)
 			  if(r=='true'){
 				  console.log('글쓰기 성공')
+				  location.href="/jspweb/board/list.jsp?cno="+document.querySelector('.cno').value;
 			  }else{console.log('글쓰기 실패')}
 		  }
 		  

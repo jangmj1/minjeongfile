@@ -34,11 +34,24 @@ function getboard(){// 개별출력 !!
 				//"bdownload(${r.bfile})" => logo.jpg 이렇게 해버리면 .접근연산자라고 인지한다 logo 객체로인식
 				//"bdownload('${r.bfile}')" =>'logo.jpg' 이렇게 문자 처리를 해줘야한다 
 			}
+			//-------------------------------------------------------------------
+			//로그인된 회원과 작성자가 동일하면 삭제할수있음
+			if(memberInfo.mid==r.mid){
+				html=
+									//(${bno,r.cno}) 이렇게 쓰지말자 r.cno 쩜이있어서 안됨					
+				`<button onclick="bdelete(${bno},${r.cno})" type="button">삭제</button> 
+				<button onclick="bupdate(${bno})" type="button">수정</button>`
+				
+				document.querySelector('.btnbox').innerHTML=html;
+			}
 			
 		}
 		
 	})
 }
+
+
+
 
 
 //2.다운로드라는 버튼 클릭시 함수(다운로드할 파일을 인수로 받기)
@@ -85,17 +98,36 @@ function bincrease(type){
 	})
 }
 
+// 삭제 하기 bno이어받음
+function bdelete(bno,cno){
+	
+	$.ajax({
+		url:"/jspweb/board/info",
+		method:"delete",
+		data:{"type":1,"bno":bno}, //전체삭제
+		success:(r)=>{
+			console.log('개별출력성공')
+			console.log(r)
+			if(r=='true'){
+				alert('삭제성공');
+				location.href="/jspweb/board/list.jsp?cno="+cno;
+			}else{
+				alert('삭제실패')
+			}
+			
+		}
+			
+	})
 
 
+}
+//수정 페이지로 이동
+function bupdate(bno){
+	location.href="/jspweb/board/update.jsp?bno="+bno
+}
 
 
-
-
-
-
-
-
-
+//400번대 오류 = js 500오류=java
 
 
 

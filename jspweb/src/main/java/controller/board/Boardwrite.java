@@ -1,5 +1,6 @@
 package controller.board;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -206,11 +207,94 @@ public class Boardwrite extends HttpServlet {
 	
 	}
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		//업로드만 담당
+		String path=request.getSession().getServletContext().getRealPath("/board/bfile");
+		MultipartRequest multi= new MultipartRequest(
+				request, 					//1.요청방식
+				path,				 		//2.첨부파일을 가져와서 어디다가 저장할것인지 폴더
+				1024*1024*10,				//3.용량 :첨부파일의 허용범위=>byte로 들어간다 1024*1024 =1메가 / 1024*1024*10 =10 메가
+				"UTF-8",					//4.첨부파일 한글 인코딩
+				new DefaultFileRenamePolicy()//5.동일한 첨부파일 명이 있으면 식별이 깨진다 => 이름을 다시 만들어준다 뒤에 숫자를 붙혀서
+				);
+		
+		//정보를 가져오기
+		int bno=Integer.parseInt(multi.getParameter("bno"));
+		int cno=Integer.parseInt(multi.getParameter("cno"));
+		String btitle=multi.getParameter("btitle");
+		String bcontent=multi.getParameter("bcontent");
+		String bfile=multi.getFilesystemName("bfile");
+		
+		//첨부파일의 경우의수 따지기
+			//1.기존에 첨부파일이 없었다---> 새로운 첨부파일이 있따[업로드,new db처리] or 새로운 첨부파일이 없다 [할거없음] 
+			//2.기존에 첨부파일이 있었따---> 새로운 첨부파일이 있다 [업로드,new db처리하고,기존파일 삭제(리얼서버에서)] or 새로운 첨부파일이 없다 [기존걸로 그대로 사용]
+		
+			// bno를 가지고 기존에 가지고있떤 파일찾기
+			String oldbfile=boardDao.getInstance().getBoard(bno).getBfile();//같이쓸려고 바깥으로 뺌
+		//첨부파일이 있따 없다부터 판단
+		if(bfile==null) {//새로운 첨부파일이 없다
+			bfile=oldbfile;
+		}else {//새로운 첨부파일이 있따=>기존파일을 삭제하겠다
+			//1.수정전 기존 첨부파일 명! 가져오기 ??기존에 첨부파일이 없으면 기존꺼를 삭제한다? 
+			
+			//2.삭제할 첨부파일의 경로를 찾자
+			String filepath=request.getSession().getServletContext().getRealPath("/board/bfile/"+oldbfile);
+			
+			//3.파일경로를 File 클래스화
+			File file=new File(filepath);
+			
+			//4.파일이 존재하면 삭제 처리
+			if(file.exists())file.delete(); //?존재하지않으면 어찌되는것인가 file.exists()가 false이면 ? 무시
+		}
+		
+		
+		
+		//dto
+		boardDto updatedto=new boardDto(bno, btitle, bcontent, bfile, cno);
+			System.out.println("updatedto"+updatedto);
+		
+		//dal
+		boolean result=boardDao.getInstance().bupdate(updatedto);
+		
+		//응답
+		response.getWriter().print(result);
+		
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		int bno=Integer.parseInt(request.getParameter("bno")) ;
+		int type=Integer.parseInt(request.getParameter("type")) ;
+		
+		//삭제전 첨부파일명구하기=>공통이니까 1번 2번 둘다 사용
+		String bfile=boardDao.getInstance().getBoard(bno).getBfile();
+			//getBoard(bno)가 dto를 리턴함 그안에 있는 첨부파일명을 뽑아옴 db에 살아있는 파일명을 뽑아오기 ! db에서 삭제전에 만들어야 뽑아올수있어서 위에기재
+		
+		boolean result=true;
+		
+		if(type==1) {//db값 삭제(delete) + 파일삭제(리얼폴더에서 첨부파일삭제)=(게시글 삭제) 
+			result= boardDao.getInstance().bdelete(bno);
+		}else if(type==2) {//db값 변경(update) +파일삭제만(리얼폴더에서 첨부파일삭제)=첨부파일만삭제
+			result=boardDao.getInstance().bfiledelete(bno);
+		}
+		
+		
+		//[삭제..얘도 공통]
+		//삭제시 첨부파일이 있을경우 진짜 경로(서버)에서도 삭제를 해야한다 db에 레코드행만 지우면 x
+			//1.경로를찾아서
+			//2.파일 객체화[왜해줌? 다양한 파일 관련 메소드제공 .length() , .delete() ,exists등..]
+		if(result) {//만약에 db가 레코드행을 삭제 성공 했을때 만약 첨부파일이있으면
+			String path=request.getSession().getServletContext().getRealPath("/board/bfile/"+bfile); //왜해줌?=>첨부할 파일명을 알아야 삭제가 가능하니까 
+			File file=new File(path);//미리 만들어진 File이라는 설계도를 가지고 .delete(),.exists() 써먹기위해 파일(path) 객체화시킴 ! path.delete() 는 안되니까!
+			if(file.exists()) { //만약에 파일이 존재하면 true
+				file.delete(); // 파일 삭제
+			}
+		
+		}
+		response.getWriter().print(result);
+		
+		
 	}
 
 }
+
+//----------------------------------------------------------------------------------

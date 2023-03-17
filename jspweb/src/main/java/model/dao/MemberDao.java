@@ -52,27 +52,53 @@ public class MemberDao extends Dao{
 	}
 	
 	
-	
-	public ArrayList<MemberDto>getMemberList() {
+	//멤버 출력함수
+	public ArrayList<MemberDto>getMemberList(int startrow,int listsize,String key,String keyword,int type ) {
 		ArrayList<MemberDto> list=new ArrayList<>();
 		
-		String sql="select * from member"; //sql 명령어 작성
+		String sql="";
 		
-		try {
-			ps=con.prepareStatement(sql); //연결된 con에 sql대입해서 ps
-			rs=ps.executeQuery();	//sql실행후 결과 rs담고
-			
-			while (rs.next()) {	//rs.next : 다음레코드 [t/f]
-				MemberDto dto=new MemberDto(rs.getInt(1), rs.getString(2), 
-						rs.getString(3), rs.getString(4), rs.getString(5));
-				list.add(dto); //dto 리스트에 담기
+		if(type==1) {
+			 sql="select * from member limit ?,?;"; //sql 명령어 작성
+			 try {
+					ps=con.prepareStatement(sql); //연결된 con에 sql대입해서 ps
+					ps.setInt(1, startrow);
+					ps.setInt(2, listsize);
+					rs=ps.executeQuery();	//sql실행후 결과 rs담고
+					
+					while (rs.next()) {	//rs.next : 다음레코드 [t/f]
+						MemberDto dto=new MemberDto(rs.getInt(1), rs.getString(2), 
+								rs.getString(3), rs.getString(4), rs.getString(5));
+						list.add(dto); //dto 리스트에 담기
+						
+						
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}else if(type==2){
+			sql="select * from member where "+key+ "='"+keyword+"'" ;
+			try {
+				ps=con.prepareStatement(sql); //연결된 con에 sql대입해서 ps
+				rs=ps.executeQuery();	//sql실행후 결과 rs담고
 				
-				
+				if (rs.next()) {	//rs.next : 다음레코드 [t/f]
+					MemberDto dto=new MemberDto(rs.getInt(1), rs.getString(2), 
+							rs.getString(3), rs.getString(4), rs.getString(5));
+					list.add(dto); //dto 리스트에 담기
+					
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}return list;
+			
+		}
+		System.out.println("리스트"+list);
+		return list;
+		
 	}
 	
 	public boolean idCheck(String mid) {

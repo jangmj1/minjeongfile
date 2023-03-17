@@ -19,6 +19,8 @@ public class boardDto {
 	public boardDto() { // 1.기본 깡통
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 
 	public boardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int bup, int bdown,
@@ -36,7 +38,7 @@ public class boardDto {
 		this.cno = cno;
 	}
 
-
+	//등록용
 	public boardDto(String btitle, String bcontent, String bfile, int mno, int cno) { //3.게시글 쓸때 필요한거
 		super();
 		this.btitle = btitle;
@@ -46,7 +48,7 @@ public class boardDto {
 		this.cno = cno;
 	}
 
-
+	//출력용
 	public boardDto(int bno, String btitle, String bcontent, String bfile, String bdate, int bview, int bup, int bdown,
 			int mno, int cno, String mid) {
 		super();
@@ -62,11 +64,35 @@ public class boardDto {
 		this.cno = cno;
 		this.mid=mid;
 	}
+	
+	//업데이트용
+	
+	public boardDto(int bno, String btitle, String bcontent, String bfile, int cno) {
+		super();
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bfile = bfile;
+		this.cno = cno;
+	}
+	
+	
+
+	
+	@Override
+	public String toString() {
+		return "boardDto [bno=" + bno + ", btitle=" + btitle + ", bcontent=" + bcontent + ", bfile=" + bfile
+				+ ", bdate=" + bdate + ", bview=" + bview + ", bup=" + bup + ", bdown=" + bdown + ", mno=" + mno
+				+ ", cno=" + cno + ", mid=" + mid + "]";
+	}
+
+
 
 
 	public int getBno() {
 		return bno;
 	}
+
 
 
 	public void setBno(int bno) {

@@ -61,6 +61,6 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script> <!-- 아작트 쓰기위한용도 -->
 	
 	<!-- 사용자 css -->
-	<script src="nibo.js" type="text/javascript"></script>
+	<script src="/jspweb/Nibo/js/nibo.js" type="text/javascript"></script>
 </body>
 </html>

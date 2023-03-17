@@ -15,7 +15,10 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import model.dao.MemberDao;
+import model.dao.admindao;
 import model.dto.MemberDto;
+import model.dto.mpageDto;
+import model.dto.pageDto;
 
 /**
  * Servlet implementation class Info
@@ -36,15 +39,41 @@ public class Info extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		//페이징 처리를 하기위한 준비물들 정보 가져오기
+		int page=Integer.parseInt(request.getParameter("page"));
+		int listsize=Integer.parseInt(request.getParameter("listsize"));
+		int startrow=(page-1)*listsize;
+		
+		//검색
+		String key=request.getParameter("key");
+		String keyword=request.getParameter("keyword");
+		
+		//타입 1이면 전체출력 2면 검색후출력
+		int type=Integer.parseInt(request.getParameter("type"));
+		
+		
+		int totalsize=admindao.getInstance().mtotalsize();//회원의 토탈수 
+			System.out.println("totalsize"+totalsize);
+		int totalpage=totalsize%listsize==0?
+					totalsize/listsize:totalsize/listsize+1;
+		
+		int btnsize=5;
+		int startbtn=((page-1)/btnsize)*btnsize+1;//시작 버튼
+		int endbtn=startbtn+btnsize-1;
+			if(endbtn>totalpage||endbtn<btnsize) {endbtn=totalpage;}
+		
 		
 		//로그인 or 회원번호 호출
-		ArrayList<MemberDto> result=MemberDao.getInstance().getMemberList();
+		ArrayList<MemberDto> result=MemberDao.getInstance().getMemberList(startrow,listsize,key,keyword,type);
 		System.out.println("result:"+result);
+		
+		//result + 페이징 처리를 같이 getWriter 하자
+		mpageDto mpageDto=new mpageDto(page, listsize, startrow, totalsize, totalpage, btnsize, startbtn, endbtn, result);
+		
 		
 		//2. *java객.체를 js객.체로 형변환 [서로 다른 언어를 사용하니까]
 		ObjectMapper mapper=new ObjectMapper();
-		String jsonArray= mapper.writeValueAsString(result);
+		String jsonArray= mapper.writeValueAsString(mpageDto);
 		//dao.java에서 받은 result(java) 값을  js에서 읽을수있게 로 변환하여 jsonArray 에담기
 		
 		System.out.println("jsonArray:"+jsonArray); // java -> js로 객체화된다

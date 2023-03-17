@@ -145,11 +145,63 @@ public class boardDao extends Dao{
 		
 	}
 	
+	//삭제함수
 	
+	public boolean bdelete(int bno) {
+		String sql="delete from board where bno="+bno;
+		
+		try {
+			ps=con.prepareStatement(sql);
+			int count =ps.executeUpdate();
+			if(count==1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+		
+		
+	}
 	
+	//6.게시물 수정
+	public boolean bupdate(boardDto updatedto) {
+		String sql="update board set btitle=?,bcontent=?,bfile=? , cno=? where bno=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, updatedto.getBtitle());
+			ps.setString(2, updatedto.getBcontent());
+			ps.setString(3, updatedto.getBfile());
+			ps.setInt(4, updatedto.getCno());
+			ps.setInt(5, updatedto.getBno());
+			int count=ps.executeUpdate();
+			if(count==1) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+		
+		
+	}
 	
-	
-	
+	//7.파일 만 삭제 수정
+	public boolean bfiledelete(int bno) {
+		String sql="update board set bfile=null where bno="+bno; //해당번호의 파일을 비운다
+		
+		try {
+			ps=con.prepareStatement(sql);
+			int count=ps.executeUpdate(); //어쩔때 count쓰는건지?? 업데이트가 실제로 되면 1이될때?
+			if(count==1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+	}
 	
 	
 	

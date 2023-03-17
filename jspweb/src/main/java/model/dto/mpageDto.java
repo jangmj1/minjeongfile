@@ -2,7 +2,7 @@ package model.dto;
 
 import java.util.ArrayList;
 
-public class pageDto {
+public class mpageDto {
 	
 	private int page;	//현재페이지
 	private int listsize;	//페이지당 게시물 표시할 개수
@@ -15,16 +15,11 @@ public class pageDto {
 	
 	
 	//!! : 실질적인 게시물 목록이 있어야함
-	ArrayList<boardDto> boarList;//출력할 데이터[게시물]리스트
+	ArrayList<MemberDto> memberList;//출력할 데이터[게시물]리스트
 	
 	
-	public pageDto() {
-		// TODO Auto-generated constructor stub
-	}
-
-	//보드출력 페이지에서 사용
-	public pageDto(int page, int listsize, int startrow, int totalsize, int totalpage, int btnsize, int startbtn,
-			int endbtn, ArrayList<boardDto> boarList) {
+	public mpageDto(int page, int listsize, int startrow, int totalsize, int totalpage, int btnsize, int startbtn,
+			int endbtn, ArrayList<MemberDto> memberList) {
 		super();
 		this.page = page;
 		this.listsize = listsize;
@@ -34,10 +29,13 @@ public class pageDto {
 		this.btnsize = btnsize;
 		this.startbtn = startbtn;
 		this.endbtn = endbtn;
-		this.boarList = boarList;
+		this.memberList = memberList;
 	}
-	
-	
+
+
+	public mpageDto() {
+		// TODO Auto-generated constructor stub
+	}
 
 
 	public int getPage() {
@@ -120,16 +118,19 @@ public class pageDto {
 	}
 
 
-	public ArrayList<boardDto> getBoarList() {
-		return boarList;
+	public ArrayList<MemberDto> getMemberList() {
+		return memberList;
 	}
 
 
-	public void setBoarList(ArrayList<boardDto> boarList) {
-		this.boarList = boarList;
+	public void setMemberList(ArrayList<MemberDto> memberList) {
+		this.memberList = memberList;
 	}
+
+
 	
-	
+
+
 	
 
 
