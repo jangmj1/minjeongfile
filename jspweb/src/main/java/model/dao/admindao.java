@@ -11,12 +11,12 @@ public class admindao extends Dao{
 	}
 	
 	
-	//모든 회원의 총 수를 구하는 함수
 	
 	public static admindao getInstance() {
 		return admindao;
 	}
 
+	//모든 회원의 총 수를 구하는 함수
 
 	public int mtotalsize() {
 		String sql="select count(*) from member";

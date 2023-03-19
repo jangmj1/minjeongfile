@@ -1,0 +1,73 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'KCCMurukmuruk';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCMurukmuruk.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.nibo{
+	font-family: 'KCCMurukmuruk';
+	font-size:30px;
+	width: 500px;
+	background-color: #FFE4E1;
+	padding: 300px 0px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.nibo button{
+	font-family: 'KCCMurukmuruk';
+	font-size:20px;
+	margin-top: 100px;
+	padding: 20px 50px;
+	background-color: white;
+	border: none;
+	border-radius:20px;
+}
+
+.nibo button:hover{
+	
+}
+
+/* -----------------------------------모달 css---------------------------------- */
+.modal_wrap{
+	position:fixed;
+	top:0; left : 0;
+	width:100%;height:100%;
+	display:flex;
+	justify-content:center; align-items:center;
+	 display: none;
+	
+}
+
+.modal_box{
+	font-family: 'KCCMurukmuruk';
+	background-color:white;
+	padding: 5%;
+	border:1px solid #eeeeee;
+	border-radius: 30px;
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+
+.bodycheck div{
+	margin: 10px 0px;
+}
+.modalBtn button{
+	font-family: 'KCCMurukmuruk';
+	margin: 20px 5px;
+	padding: 10px 20px;
+	background-color:  #FFE4E1;
+	border: none;
+	border-radius: 5px;
+}
+
+.exercise ,.exercise option{
+	font-family: 'KCCMurukmuruk';
+}
+

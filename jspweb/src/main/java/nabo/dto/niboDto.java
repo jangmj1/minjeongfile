@@ -1,6 +1,6 @@
 package nabo.dto;
 
-public class naboDto {
+public class niboDto {
 	
 	String today ;
 	double height ;
@@ -9,12 +9,12 @@ public class naboDto {
 	int eno ;
 
 	
-	public naboDto() {
+	public niboDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public naboDto(String today, double height, double weight, double bmi, int eno) {
+	public niboDto(String today, double height, double weight, double bmi, int eno) {
 		super();
 		this.today = today;
 		this.height = height;
