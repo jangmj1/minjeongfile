@@ -36,24 +36,29 @@ function getBoardlist(page){ //출력함수
 			console.log('통신 ㄱㄱ')
 			console.log("r은 무엇이 넘어올까요?:",r)//pagedto{} 가 넘어온다 
 			//-------------------테이블출력------------------------/
-			let html=
-			`<tr>
-				<th>번호</th><th>제목</th>
-				<th>작성자</th><th>작성일</th>
-				<th>조회수</th><th>좋아요</th>
-				<th>싫어요</th>
-			</tr>`
+			let html='';
+			
 			
 	 	 //r: { 안에 [] 가 있는 형태} forEach는 []ArrayList 형태일경우만 돌린다 그래서 r에서 []인boarList를 끄집어내서 forEach를 돌리자 
 	 	 	//!! : boarList를 아는 방법은 콘솔창에서 확인가능 dto값과 동일 (r.result x)
 			r.boarList.forEach( (o,i)=>{//포문시작
 			html+=
-				`<tr>
-					<td>${o.bno}</td><td><a href="/jspweb/board/view.jsp?bno=${o.bno}"> ${o.btitle} </a></td>
-					<td>${o.mid}</td><td>${o.bdate}</td>
-					<td>${o.bview}</td><td>${o.bup}</td>
-					<td>${o.bdown}</td>
-				</tr>`
+				`<div class="boardcontent">
+					<div>
+						<img alt="" class="hpimg" src="/jspweb/member/pimg/${o.mimg==null? 'default.webp':o.mimg}">
+						<span class="mid">${o.mid}</span>
+						<span class="bdate">${o.bdate}</span>
+					</div>
+					
+					<div class="btitle"><a href="/jspweb/board/view.jsp?bno=${o.bno} ">${o.btitle}</a></div>
+					<div class="contentbottom">
+						<span><i class="far fa-eye"></i> <span class="bview">${o.bview}</span> </span>
+						<span><i class="far fa-thumbs-up"></i> <span class="bup">${o.bup}</span> </span>
+						<span><i class="far fa-thumbs-down"></i> <span class="bdown">${o.bdown}</span> </span>
+						<span><i class="far fa-comment-dots"></i> <span class="bcount">${o.rcount}</span> </span>
+					</div>
+				
+				</div>`
 			})//포문끝
 			
 			document.querySelector('.boardTable').innerHTML=html; //html넣고 밑에 html로 이동
@@ -64,21 +69,21 @@ function getBoardlist(page){ //출력함수
 			
 			//이번버튼
 			html+= page<=1? //3항 연산자를 사용하여 이전 버튼을 제어좀하자 
-				`<button onclick="getBoardlist(${page})" type="button">이전</button>
+				`<button onclick="getBoardlist(${page})" type="button" class="pagebtn"><</button>
 				`:
-				`<button onclick="getBoardlist(${page-1})" type="button">이전</button>
+				`<button onclick="getBoardlist(${page-1})" type="button"  class="pagebtn"><</button>
 				`
 			//현재버튼
 			for(let i=r.startbtn;i<=r.endbtn;i++) //시작버튼 번호 부터 마지막 버튼 번호까지 버튼 생성
 			html+=
-				`<button onclick="getBoardlist(${i})" type="button">${i}</button>
+				`<button onclick="getBoardlist(${i})" type="button"  class="pagebtn">${i}</button>
 				`
 			//다음[만약에 현재 페이지가 총 페이지 수 이상이면 다음페이지는 없음]	
 			
 			html+= page>r.totalpage?//3항 연산자를 사용하여 다음 버튼을 제어좀하자 
-				`<button onclick="getBoardlist(${page})" type="button">다음</button>
+				`<button onclick="getBoardlist(${page})" type="button"  class="pagebtn" >></button>
 				`:
-				`<button onclick="getBoardlist(${page+1})" type="button">다음</button>
+				`<button onclick="getBoardlist(${page+1})" type="button"  class="pagebtn" >></button>
 				`
 			
 				document.querySelector('.pagebox').innerHTML=html;

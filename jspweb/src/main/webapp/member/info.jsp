@@ -49,6 +49,7 @@
 				<button onclick="setDelete()" class="modal_check" type="button">확인</button>
 				<button onclick="closeModal()" class="modal_cencel" type="button">취소</button>
 			</div>
+			
 		
 		</div>
 	

@@ -33,6 +33,13 @@ function bwrite(){
 	  })
   
 }
+
+
+$(document).ready(function(){
+	$('#summernote').summernote(
+		{height:500}
+	);
+});
 //Uncaught TypeError: Illegal invocation 	jquery-latest.min.js:4  : 주로! $.ajax 오류!!
 //콘솔에 위와같은 오류가 나면 아작트 내에 오타가 났는지 또는
 //jsp에 <script src="http://code.jquery.com/jquery-latest.min.js"></script> 를 넣어놨는지 확인할것

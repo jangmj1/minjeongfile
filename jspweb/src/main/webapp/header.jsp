@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- 폰트어썸 -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+	
 	<!-- modal css -->
 	<link href="/jspweb/css/modal.css" rel="stylesheet">
 	

@@ -1,0 +1,87 @@
+@charset "UTF-8";/*??*/
+
+@font-face {
+    font-family: 'PilseungGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/PilseungGothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.boardbox{
+	width: 80%;
+	margin: 70px auto;
+}
+.boardtop{
+	text-align: center;
+}
+
+.boardtop,.cname{
+	font-family: 'PilseungGothic';
+}
+
+.fa-pencil-alt{
+	font-size: 30px;
+}
+
+.boardtopetc{
+    display: flex;
+    justify-content: space-between;
+}
+.bbtn{
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #c0daff;
+    color: #504141a6;
+}
+
+.boardcontent{
+	margin: 20px 0px 0px 0px;
+    border-top: 2px solid #eeeeee;
+    padding: 20px 10px;
+}
+
+
+.bdate{
+font-size: 13px;
+}
+
+.contentbottom{
+text-align: right;
+}
+
+.contentbottom span{
+	padding-left:5px; 
+}
+
+.btitle{
+	margin: 20px 0;
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.boardbottom{
+	text-align: center;
+    border-top: 1px solid #eeeeee;
+    padding-top: 30px;
+    margin: 20px;
+}
+
+
+
+.pagebtn{
+	border: none;
+	background-color: transparent;
+	font-weight: bold;
+	margin: 0px 10px;
+	margin-bottom: 15px;
+}
+
+.keyword{
+	border: 1px solid #e8e8e8;
+	padding:5px 10px;
+	border-radius: 10px;
+	
+}
+
