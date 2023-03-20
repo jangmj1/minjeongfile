@@ -15,18 +15,28 @@ public class niboDto {
 
 
 	public niboDto(String today, double height, double weight, double bmi, int eno) {
-		super();
+		super();//풀생성자
 		this.today = today;
 		this.height = height;
 		this.weight = weight;
 		this.bmi = bmi;
 		this.eno = eno;
 	}
+	
+	//출력용
+	public niboDto(String today, double weight) {
+		super();
+		this.today = today;
+		this.weight = weight;
+	}
+	
 
 
 	public String getToday() {
 		return today;
 	}
+
+
 
 
 	public void setToday(String today) {

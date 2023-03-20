@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import nabo.dto.niboDto;
 
@@ -60,6 +61,25 @@ public class niboDao {
 		
 	}
 	
+	public ArrayList<niboDto> print(int type){
+		ArrayList<niboDto>list=new ArrayList<>();
+		String sql="";
+		if(type==1) {
+			sql="select today,weight from mypage;";
+			try {
+				ps=con.prepareStatement(sql);
+				rs=ps.executeQuery();
+				while (rs.next()) {
+					niboDto dto=new niboDto(rs.getString(1), rs.getInt(2));
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}return list;
+		
+	}
 	
 	
 	

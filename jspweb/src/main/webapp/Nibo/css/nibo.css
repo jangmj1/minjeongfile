@@ -70,4 +70,26 @@
 .exercise ,.exercise option{
 	font-family: 'KCCMurukmuruk';
 }
+/*----------------------------------print구역-----------------------------*/
+.printBox{
+	font-family: 'KCCMurukmuruk';
+	font-size:30px;
+	width: 500px;
+	background-color: #FFE4E1;
+	padding: 100PX 0px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.pbox{
+	width: 80%; 
+	margin: 0 auto;
+	background-color: white;
+	border-radius: 20px;
+}
+
+.pbox tr{
+	display: flex;
+	justify-content: space-around;
+}
 
