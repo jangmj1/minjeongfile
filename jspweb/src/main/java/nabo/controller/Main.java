@@ -29,11 +29,15 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int type=Integer.parseInt(request.getParameter("type"));
-		
+		int myno=0;
 		ArrayList<niboDto>result=null;//전역변수
 		if(type==1) {
-			result=niboDao.getInstance().print(type);
+			
+		}else if (type==2) {
+			myno=Integer.parseInt(request.getParameter("myno"));
+			
 		}
+		result=niboDao.getInstance().print(type,myno);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonArray=mapper.writeValueAsString(result);
@@ -74,7 +78,7 @@ public class Main extends HttpServlet {
 		  double bmi=Math.round(testbmi*100)/100.0; System.out.println(bmi); //비만율 계산
 		  
 		  
-		  niboDto dto=new niboDto(today, height, weight, bmi, exercise);
+		  niboDto dto=new niboDto(0, today, height, weight, bmi, exercise);
 		  
 		  boolean result=niboDao.getInstance().bodycheck(dto);
 		  response.setCharacterEncoding("UTF-8");
