@@ -18,7 +18,7 @@ html, body, .nibo{
 	font-size:30px;
 	width: 500px;
 	background-color: #FFE4E1;
-	padding: 300px 0px;
+	padding: 100px 0px;
 	text-align: center;
 	margin: 0 auto;
 	
@@ -29,17 +29,24 @@ html, body, .nibo{
 
 .nibo button{
 	font-family: 'KCCMurukmuruk';
-	font-size:20px;
-	margin-top: 20px;
-	padding: 20px 50px;
+	font-size:15px;
+	padding: 15px 30px;
 	background-color: white;
 	border: none;
 	border-radius:20px;
+	margin: 0px 10px;
 }
 
+.start{
+	    padding-bottom: 0px !important;
+  		 margin-bottom: 0px !important;
+}
 
 /* -----------------------------------모달 css---------------------------------- */
-
+.startbtn{
+	padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
 
 .modal_box{
 	font-family: 'KCCMurukmuruk';
@@ -53,11 +60,18 @@ html, body, .nibo{
 }
 
 .modal_box h3 {
+	padding-bottom:30px;
+	font-size: 25px;
 	margin-top: 0px;
 }
 .modal_box h4 {
 	margin: 0px;
 	font-weight: lighter;
+}
+.modal_box p {
+	 font-size: 15px;
+    text-align: initial;
+    margin: 0px 0px 20px 20px;
 }
 
 .bodycheck input{
@@ -69,12 +83,16 @@ html, body, .nibo{
 	font-size: 20px;
 }
 .modalBtn button{
-	font-family: 'KCCMurukmuruk';
 	margin: 30px 5px;
 	padding: 10px 20px;
 	background-color:  #FFE4E1;
 	border: none;
-	border-radius: 5px;
+	border-radius: 15px;
+}
+
+.assay button{
+	padding-top: 50px;
+	font-size: 25px;
 }
 
 .exercise ,.exercise option{
@@ -107,9 +125,66 @@ html, body, .nibo{
 	font-size: 20px;
 	padding: 0px 20px;
 }
-
+.line{
+	display: flex;
+}
+.ckbox, .deletedata{
+	display: none;
+}
 .pbox1 {
 	margin-bottom: 20px;
 	border-bottom: 2px solid  #FFE4E1;
 }
+
+.line{
+	display: flex
+}
+
+.btn{
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.btn button{
+	background-color: #FFE4E1;
+}
+
+
+/*---------------------수정구역-------------------------*/
+
+
+.updatetext input{
+	width: 50px;
+	margin-right:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -23,6 +23,7 @@ select * from exercise;
 
 drop table if exists mypage;
 create table mypage(
+myno int auto_increment primary key,
 today date,
 height double,
 weight double not null,
@@ -31,7 +32,11 @@ eno int default 1,
 foreign key (eno) references  exercise(eno) -- 운동이 사라져도 운동한 내역은 사라지지말것
 );
 select * from mypage;
-insert into mypage(height,weight,bmi)value(164,53,19.7);
+update mypage set height=167.1, weight=53.2, bmi=?,eno=7 where myno=1;
+select today,weight from mypage order by today desc limit 0 , 5 ;
+select m.height,m.weight,m.bmi,e.sports from mypage m natural join exercise e where myno=1;
+select today,weight from mypage;
+
 select * from  mypage m,exercise e where m.eno=e.eno;
 
 

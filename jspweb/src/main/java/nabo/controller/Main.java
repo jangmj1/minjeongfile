@@ -75,7 +75,8 @@ public class Main extends HttpServlet {
 		
 		  double height=Double.parseDouble(testheight) ;System.out.println(height);
 		  double weight=Double.parseDouble(testweight) ;System.out.println(weight);
-		  int exercise=Integer.parseInt(request.getParameter("exercise")) ;System.out.println(exercise); double testbmi=(weight/(height*height))*10000;
+		  int exercise=Integer.parseInt(request.getParameter("exercise")) ;System.out.println(exercise);
+		  double testbmi=(weight/(height*height))*10000;
 		  double bmi=Math.round(testbmi*100)/100.0; System.out.println(bmi); //비만율 계산
 		  
 		  
@@ -93,6 +94,20 @@ public class Main extends HttpServlet {
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	//수정하기
+		System.out.println("수정하기풋방식 연동");
+		String upheight1=request.getParameter("upheight");System.out.println("upheight1"+upheight1);//널로 들어오네..? 왜??
+		double upheight= Double.parseDouble(request.getParameter("upheight")); System.out.println(upheight);
+		double upweight= Double.parseDouble(request.getParameter("upweight")); System.out.println(upweight);
+		int upeno=Integer.parseInt(request.getParameter("upeno")); System.out.println(upeno);
+		int myno=Integer.parseInt(request.getParameter("myno")); System.out.println(myno);
+		double testbmi=(upweight/(upheight*upheight))*10000;//비만율 계산
+		double bmi=Math.round(testbmi*100)/100.0; System.out.println(bmi); //비만율 소수점 두번쨰자리
+		
+		boolean result=niboDao.getInstance().update(upheight, upweight, bmi, upeno, myno);
+		 response.setCharacterEncoding("UTF-8");
+		 response.getWriter().print(result);
+	
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

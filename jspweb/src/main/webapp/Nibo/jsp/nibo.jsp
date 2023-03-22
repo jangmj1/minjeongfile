@@ -11,11 +11,12 @@
 <body>
 	
 		<div class="nibo">
-			
+			<h3>Nice body</h3>
 			<div class="modal_box">
-				<h3>Nice body</h3>
-				<button onclick="startmybody()">시 작 하 기</button>
 				
+				<button class="startbtn" onclick="startmybody()">
+					<h3 class="start">시 작 하 기</h3></button>
+					
 			</div>
 				
 		</div>
