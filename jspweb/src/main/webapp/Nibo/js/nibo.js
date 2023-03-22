@@ -101,7 +101,7 @@ function startmybody(){//시작하기 누르면 그동안의 입력값들이 출
 							</tr>
 						</table>`;
 					
-			if(r.lengtd==0){
+			if(r.length==0){
 				 html+='<h6>아직 기록된 내용이 없어용 ㅠㅠ</br>기록을 눌러주세요 </h6>'
 			}else{
 			 
