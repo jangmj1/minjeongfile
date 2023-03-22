@@ -3,13 +3,13 @@ console.log('gd');
 function bodycheck(){ //db에 입력하고 모달을 닫아야한다
 	console.log('ggggg')
 	
-	let today1=document.querySelector('.today').value;
+	let today=document.querySelector('.today').value;
 	let height=document.querySelector('.height').value;
 	let weight=document.querySelector('.weight').value;
 	let exercise=document.querySelector('.exercise').value;
 	
 	let bodycheck={
-		today:today1,
+		today:today,
 		height:height,
 		weight:weight,
 		exercise:exercise
@@ -18,7 +18,7 @@ function bodycheck(){ //db에 입력하고 모달을 닫아야한다
 	
 	$.ajax({
 		url:"/jspweb/nicebody",
-		metdod:"post",
+		method:"post",
 		data:bodycheck,
 		success:(r)=>{
 			console.log('연동성공')
@@ -79,13 +79,12 @@ function writebody(){//오늘의 몸상태 기록
 				document.querySelector('.modal_box').innerHTML=html;
 }
 
-function closeModal(){//취소하기 하면 모달 닫힘
+function closeModal(){//취소하기 첫페이지로 이동
 	startmybody();
 }
 
 
 function startmybody(){//시작하기 누르면 그동안의 입력값들이 출력되고 버튼들이생긴다
-	document.querySelector('.modal_wrap').style.display='flex';
 	console.log('프린트')
 	$.ajax({//아작시작
 		url:"/jspweb/nicebody",
@@ -159,7 +158,7 @@ function oneview(myno){
 							</table>
 						</div>
 						<div>
-							<button onclick="updatebody(${r.myno})">수정하기</button>
+							<button onclick="updatebody(${myno})">수정하기</button>
 							<button onclick="startmybody()">뒤로가기</button></div> 
 						</div>`
 				document.querySelector('.modal_box').innerHTML=html;

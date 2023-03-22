@@ -29,6 +29,7 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int type=Integer.parseInt(request.getParameter("type"));
+		System.out.println("타입"+type);
 		int myno=0;
 		ArrayList<niboDto>result=null;//전역변수
 		if(type==1) {
@@ -38,7 +39,7 @@ public class Main extends HttpServlet {
 			
 		}
 		result=niboDao.getInstance().print(type,myno);
-		
+		System.out.println(result);
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonArray=mapper.writeValueAsString(result);
 		
