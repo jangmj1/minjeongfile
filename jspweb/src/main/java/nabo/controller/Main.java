@@ -111,6 +111,18 @@ public class Main extends HttpServlet {
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int myno=Integer.parseInt(request.getParameter("del_myno")); System.out.println(myno);
+		
+		boolean result=niboDao.getInstance().deletebody(myno);
+		
+		response.getWriter().print(result);
+		
+		
+		
+		
+	
+	
 	}
 
 }

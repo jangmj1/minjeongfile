@@ -119,5 +119,12 @@ public class niboDto {
 	}
 
 
+	@Override
+	public String toString() {
+		return "niboDto [myno=" + myno + ", today=" + today + ", height=" + height + ", weight=" + weight + ", bmi="
+				+ bmi + ", eno=" + eno + ", sports=" + sports + "]";
+	}
+
+
 
 }

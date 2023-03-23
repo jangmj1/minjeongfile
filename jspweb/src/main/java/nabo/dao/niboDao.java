@@ -101,7 +101,7 @@ public class niboDao {
 			}return list;
 			
 	}
-	
+	//수정하기
 	public boolean update(double upheight,double upweight,double bmi,int upeno,int myno) {
 		String sql="update mypage set height=?, weight=?,bmi=?,eno=? where myno=?";
 		
@@ -122,7 +122,24 @@ public class niboDao {
 	}
 	
 	
-	
+	//삭제하기
+	public boolean deletebody(int myno) {
+		String sql="delete from mypage where myno =?";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, myno);
+			int count=ps.executeUpdate();
+			if(count==1) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+		
+	}
 	
 	
 	

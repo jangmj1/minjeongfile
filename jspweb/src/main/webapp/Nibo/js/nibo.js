@@ -1,7 +1,6 @@
 console.log('gd');
-
+let del_myno  ='';
 function startmybody(){//1.시작하기 누르면 그동안의 입력값들이 출력되고 버튼들이생긴다
-	let myno='';
 	console.log('프린트')
 	$.ajax({//아작시작
 		url:"/jspweb/nicebody",
@@ -22,13 +21,12 @@ function startmybody(){//1.시작하기 누르면 그동안의 입력값들이 �
 				 html+='<h6>아직 기록된 내용이 없어용 ㅠㅠ</br>기록을 눌러주세요 </h6>'
 			}else{
 			 
-			
 			r.forEach( (o,i)=>{
 				
 			html+=//수정하기 함수=>5번으로 이동
 				`
 				<div class="line">
-					<input class="ckbox" type="checkbox">
+					<input onclick="ckbox(event)" value="${o.myno}" class="ckbox"  name="ckbox" type="radio" >
 					<a onclick="oneview(${o.myno})">
 						<table  class="pbox2" >
 							<tr>
@@ -38,26 +36,35 @@ function startmybody(){//1.시작하기 누르면 그동안의 입력값들이 �
 					</a>
 				</div>
 				`
-				myno=o.myno;
 				})//포문 끝
-			console.log("myno:"+myno)
+				
 			}
+			
+			
 			html+=
 			`
 				<div class="btn">
 					<button onclick="writebody()">기록</button>
-					<button class="opendel" onclick="opendel()">삭제</button>
-					<button class="deletedata" onclick="deletedata(${myno})">삭제</button>
+					<button class="opendel" onclick="opendel( )">삭제</button>
+					<button class="deletedata" onclick="deletedata()">삭제</button>
 				</div> 
 				<div class="assay"><button  onclick="dataassay()" >데이트분석</button></div> 
 			</div>`
 			document.querySelector('.modal_box').innerHTML=html;
+			
 		}
 	})//아작끝
 	
 	
 }
 
+//체크한값가져오기함수
+function ckbox(e){
+	if(e.target.checked){
+		del_myno = e.target.value;
+	}  
+}
+ 
 
 function opendel(){//opendel 버튼을 누르는 순간 ckbox 체크박스가 나옴,opendel 버튼 숨겨짐 deletedata삭제함수 실행 같은자리에 두기위해..
 	
@@ -72,8 +79,20 @@ function opendel(){//opendel 버튼을 누르는 순간 ckbox 체크박스가 �
 	
 }
 
-function deletedata(myno){ //삭제하기함수
-	console.log("삭제할번호는"+myno)
+function deletedata(){ //삭제하기함수	
+	console.log("삭제할번호 :"+del_myno)
+	
+	$.ajax({
+		url:"/jspweb/nicebody",
+		method:"delete",
+		data:{del_myno:del_myno},
+		success:(r)=>{
+			console.log('삭제성공')
+			console(r)
+			startmybody();
+		}
+	})
+	
 }
 
 

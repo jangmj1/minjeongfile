@@ -16,7 +16,6 @@
 				
 				<button class="startbtn" onclick="startmybody()">
 					<h3 class="start">시 작 하 기</h3></button>
-					
 			</div>
 				
 		</div>
