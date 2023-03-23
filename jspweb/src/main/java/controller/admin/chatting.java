@@ -38,16 +38,19 @@ public class chatting {
 	
 	//2.클라이언 소켓이 접속 했을때 실행되는 메소드/함수
 	@OnOpen	//session 접속한 클라이언트소켓 객체 //서버엔드포인트의 url 매개변수 [@PathParam] 가져오기
-	public void OnOpen(Session session,@PathParam("mid") String mid ) { //OnOpen 이름 아무거나사용가능 !session = 접속한 클라이언 소켓객체
+	public void OnOpen(Session session,@PathParam("mid") String mid ) throws Exception { //OnOpen 이름 아무거나사용가능 !session = 접속한 클라이언 소켓객체
 				
 		//접속한 클라이언트 소켓들을 보관하기위해 필드만들자 ! 왜보관함? 유재석이메세지를 보내면 같이 접속한 강호동페이지에도 메세지가 나와야하니까
-		
 		ClientDto clientDto=new ClientDto(session, mid);
 		접속명단.add(clientDto);
 		System.out.println(접속명단.toString());
+		
+		//새롭게 접속한 클라이언트를 모든 사람들에게 알림메세지보내기(누가 입장하였습니다)
+		onMessage(session,"enter");
+		
 	}
 	@OnClose	//클라이언트 소켓이 접속이나갔을때 (f5눌렀을때)
-	public void onclose(Session session) {
+	public void onclose(Session session) throws Exception {
 		System.out.println("클라이언트가 나갔습니다");
 		
 		//접속끊긴 세션의 dto찾아서 제외
@@ -55,22 +58,45 @@ public class chatting {
 			if(dto.getSession()==session) { //주소값이 같으면
 				
 				접속명단.remove(dto); //접속명단에서 제외를 시켜야함 
+				
+				//연결이 끊긴 클라이언트 소켓을 모든 접속명단에게 알림 메시지보내기
+				//1.문자열 타입의 JSON형식 직접 작성하기[VS ObjectMapper]
+					//{"필드명1":"데이터1","필드명2":"데이터2"}
+				String msg="{\"type\":\"alarm\",\"msgbox\":\""+dto.getMid()+"님이 채팅방에 나갔습니다.\"}";
+				onMessage(session, msg);//나갔다는 메세지
+				
+				//나간 사람의 소켓을 모든 접속 명단에게 목록알림 메시지 보내기
+				onMessage(session, "enter");//명단
+				break;//나간사람 찾았으면 한번만 실행하면되기때문에 브레이크걸자
 			}
 		}
 	}
 	//3.클라이언트 소켓이 메시지를 보냈을때[서버가 메세지받기]
-	@OnMessage//[필수인수 ! 누가 session , 어떤내용을 msg ]
+	@OnMessage//[필수인수 ! 누가 session , 어떤내용을 msg ] session과 memberInfo 는 다른것  session는 pc, memberInfo 회원정보
 	public void onMessage(Session session,String msg) throws Exception {
 		System.out.println("클라이언트 웹 소켓이 메시지를 보냈따.[서버가 메세지를 받았다.]");
 		System.out.println(msg);//클라이언트가 보낸 메세지를 받음
-		
-		//메시지 형식 구성
-		MessageDto messageDto=new MessageDto(session, msg);
-			System.out.println(messageDto);
-		//메시지받는프로그램[js]:json 으로 형변환 *Session 객체를 json형식으로 변화 불가능
+		//2.접속명단 알림
 		ObjectMapper mapper=new ObjectMapper();
+		String json=null;
+		if(msg.equals("enter")) {//엔터가 들어올리가 없다
+			//회원명단[이미지랑 아이디 포함된 회원 리스트를 생성]
+			ArrayList<MessageDto>list=new ArrayList<>();
+			for(ClientDto dto:접속명단) {//현재 접속된 접속명단의 회원정보객체를 만들어서 리스트에 담는다
+				list.add(new MessageDto(dto.getSession(), null));//명단안에 있는dto다 만들기
+			}
+			json=mapper.writeValueAsString(list);//전체회원정보의 객체가 담긴 list를 json에 담기
+		}else {
+			//1.메시지
+			//메시지 형식 구성
+			MessageDto messageDto=new MessageDto(session, msg);//보낸사람의 dto한개만들고
+			 json=mapper.writeValueAsString(messageDto);
+		}
 		
-		String json=mapper.writeValueAsString(messageDto);
+		//메시지받는프로그램[js]:json 으로 형변환 *Session 객체를 json형식으로 변화 불가능
+		
+		
+		
 		System.out.println(json);
 			
 		

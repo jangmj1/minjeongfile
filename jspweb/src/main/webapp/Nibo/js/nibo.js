@@ -60,9 +60,15 @@ function startmybody(){//1.시작하기 누르면 그동안의 입력값들이 �
 
 
 function opendel(){//opendel 버튼을 누르는 순간 ckbox 체크박스가 나옴,opendel 버튼 숨겨짐 deletedata삭제함수 실행 같은자리에 두기위해..
-	document.querySelector('.ckbox').style.display='flex'
-	document.querySelector('.opendel').style.display='none'
-	document.querySelector('.deletedata').style.display='flex'
+	
+	
+	let array =document.querySelectorAll('.ckbox');
+	
+	for(let i=0;i< array.length ; i++ ){
+		array[i].style.display='flex';
+	}
+	document.querySelector('.opendel').style.display='none';
+	document.querySelector('.deletedata').style.display='flex';
 	
 }
 
@@ -256,6 +262,8 @@ function updateok(myno){//수정완료
 		success:(r)=>{
 			console.log('수정통신완료')
 			console.log(r)
+			startmybody();
+			
 		}
 	})
 	

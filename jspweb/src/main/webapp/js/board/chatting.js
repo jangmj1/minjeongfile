@@ -8,8 +8,8 @@
 		}else{
 			
 		//1. 클라이언트 소켓 생성과 동시에 서버소켓 연결[open]
-		클라이언트소켓 = new WebSocket('ws://192.168.17.12:8080/jspweb/chatting/'+memberInfo.mid); //웹소켓만들기. 오픈 자체는 여기서 됨
-		console.log(클라이언트소켓)
+		클라이언트소켓 = new WebSocket('ws://192.168.17.123:8080/jspweb/chatting/'+memberInfo.mid); //웹소켓만들기. 오픈 자체는 여기서 됨
+		console.log(클라이언트소켓)//서버소켓에 문제가없으면 아래가실행
 		클라이언트소켓.onopen=function(e){서버소켓연결(e);}//클라이언트 소켓 객체에 내가만든 함수 대입
 		
 		클라이언트소켓.onmessage= function(e){ 메시지받기(e) }  //만들어논 함수를 함수에 담아서 onmessage 에 담음! 
@@ -18,23 +18,45 @@
 		클라이언트소켓.onclose=function(e){연결해제(e)}
 
 		}
-		
+	
 
 
 	//2.클라이언트 소켓이 접속햇을때 이벤트 함수 정의( 연결이 정상적을 되었을때 실행) 넣어도되고 안넣어도됨 확인용
-function 서버소켓연결(e){contentbox.innerHTML+= 
-					`<div class="alarm">
-						<span> 채팅방에 입장 하셨습니다. </span>
-					</div>`}//접속했을때 하고싶은 함수 정의
+	function 서버소켓연결(e){
+		자료보내기(memberInfo.mid+"님이 채팅방에 접속하셨습니다.","alarm")
+		}
+		
+		
 
-//3.클라이언트 소켓이 서버에게 메시지를 보내기[@OnMessage]
+//3.클라이언트 소켓이 서버에게 메시지를 보내기[@OnMessage](1.보내기버튼 눌렀을때 2.엔터쳤을때 type=msg)
 	function 보내기(){
 		let msgbox=document.querySelector('.msgbox').value;
 		//**서버소켓에게 메세지 전송하기
-		클라이언트소켓.send(msgbox);
+			//json형식의 문자열 타입 만들어서 문자열 타입으로 전송
+			//JSON.parse(JSON형식의 문자열 타입)	:json형식[모양]string타입-->json타입으로 변환
+			//JSON.stringify(JSON객체)		:json타입-->json형식[모양]의 string타입으로 변환
+			let msg={//객체를 json모양의 타입으로 바꿔야한다 ajax는 이런짓안해도됨
+				type:'msg',
+				msgbox:msgbox,
+			}
+		클라이언트소켓.send(JSON.stringify(msg)); //--->@OnMessage [json을 string으로 바꿔서 java로 보낸다]
 		
 		document.querySelector('.msgbox').value='';//전송 성공시 채팅창 초기화
 	}
+	//4-2 type에 따른 html 구별
+	function 메시지타입( msg ){
+		let json=JSON.parse(msg);
+		
+		let html='';
+		if(json.type=='msg'){
+			html+=	`<div class="content">${json.msgbox}</div>`
+		}else if(json.type=='emo'){
+			html+=	`<div class="content emoconten"><img src="/jspweb/img/imoji/emo${json.msgbox}.gif"></div>`
+			
+		}
+		return html;
+	}
+	
 	
 	//4. 서버로부터 메세지가 왔을때 메세지 받기
 	function 메시지받기(e){ //e가뭐임????? e:메세지내용 이건 성공후 r값과 같은것
@@ -42,14 +64,38 @@ function 서버소켓연결(e){contentbox.innerHTML+=
 		console.log(e.data);
 		console.log(JSON.parse(e.data));//문자열 json->객체 json형변환
 		
-		let data=JSON.parse(e.data);
+		let data=JSON.parse(e.data); console.log("data"+data)//전달받은 메시지dto
+		
+		//let msg=JSON.parse(data.msg);console.log("msg"+msg) 
+		
+		//명단[여러개=list/array] vs 메시지 정보[1개=dto/objec]
+			//array 타입 확인 : 해당 객체가 배열/리스트면 true
+		if(Array.isArray(data)){//타입 list
+			let html='';
+			data.forEach( (o)=>{
+				html+=
+				`
+				<div class="connectbox"><!-- 접속자한명 -->
+					<div><img src="/jspweb/member/pimg/${o.frommimg==null? 'default.webp' : o.frommimg}" class="hpimg"> </div>
+					<div class="name">${o.frommid}</div>
+				</div>`
+			})
+			document.querySelector('.connectlistbox').innerHTML=html;
+		}
+		
+		else if(JSON.parse(data.msg).type=='alarm'){//타입 object
+			contentbox.innerHTML+= 
+						`<div class="alarm">
+							<span> ${JSON.parse(data.msg).msgbox} </span>
+						</div>`//접속했을때 하고싶은 함수 정의
+		}
 		
 		//보낸사람
-		if(data.frommid==memberInfo.mid){
+		else if(  data.frommid==memberInfo.mid){
 			contentbox.innerHTML+=
 			`	<div class="secontent">
 						<div class="date">${data.time}</div>
-						<div class="content">${data.msg}</div>
+						${메시지타입(data.msg)}
 					</div>`
 			
 		}else{//내가 받은 메세지
@@ -61,7 +107,7 @@ function 서버소켓연결(e){contentbox.innerHTML+=
 						<div class="rcontent">
 							<div class="name">${data.frommid}</div>
 							<div class="contentdate">
-								<div class="content">${data.msg}</div>
+								${메시지타입(data.msg)}
 								<div class="date">${data.time}</div>
 							</div>
 						</div>
@@ -85,8 +131,9 @@ function 서버소켓연결(e){contentbox.innerHTML+=
 
  //5.서버와 연결이 끊겼을때=>클라이언소켓 객체가 초기화됐을때 f5 or 페이지전환
 	function 연결해제(e){
-		alert('연결해제되었습니다')
-		console.log(e)
+		//이미 세션이 종료후에 발생하는 함수이므로 아래코드는 다른세션에게 전달 불가능 그래서 서버가 대신 보내줘야함
+		//자료보내기(memberInfo.mid+"님이 채팅방에서 나가셨습니다.","alarm")
+		//console.log(e)
 	}
 
 //6.엔터키를 눌렀을때
@@ -96,6 +143,33 @@ function 서버소켓연결(e){contentbox.innerHTML+=
 			 보내기();
 		 }
 	 }
+	 
+	//7.이모티콘 출력
+	getemo()
+	function getemo(){
+		let html='';
+		for(let i=1 ; i<=43;i++){
+			html+=`<img onclick="자료보내기(${i},'emo')" alt="" src="/jspweb/img/imoji/emo${i}.gif" width="70px;">`
+		}
+		document.querySelector('.emolist').innerHTML=html;
+	};
+	
+	//8.이모티콘 보내기
+	function 자료보내기(msgbox,type){
+		let msg={
+					msgbox:msgbox,
+					type:type
+				}
+		클라이언트소켓.send(JSON.stringify(msg))//-->@OnMessage
+		
+		
+	}
+	
+
+
+
+
+
 	
 	/*
 	클라이언트소켓 필드
