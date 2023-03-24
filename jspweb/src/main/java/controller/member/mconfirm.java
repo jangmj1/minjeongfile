@@ -21,7 +21,8 @@ public class mconfirm extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		
 		String mid= request.getParameter("mid");
 		
 		//2.dao에게 전달하고 결과받기

@@ -1,41 +1,47 @@
 package controller.product;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-/**
- * Servlet implementation class info
- */
+import model.dao.productDao;
+import model.dto.productDto;
+
 @WebServlet("/product/info")
 public class info extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public info() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+    ObjectMapper mapper=new ObjectMapper();
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		double 동= Double.parseDouble(request.getParameter("동")) ;	System.out.println(동);
+		double 서= Double.parseDouble(request.getParameter("서")) ;	System.out.println(서);
+		double 남= Double.parseDouble(request.getParameter("남")) ;	System.out.println(남);
+		double 북= Double.parseDouble(request.getParameter("북")) ;	System.out.println(북);
+    	
+		ArrayList<productDto> result=productDao.getInstance().getproductList(동,서,남,북);
+		
+		String jsonarray=mapper.writeValueAsString(result);
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		response.getWriter().print(jsonarray);
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path=request.getSession().getServletContext().getRealPath("/product/pimg");
@@ -53,22 +59,17 @@ public class info extends HttpServlet {
 		String plat=multi.getParameter("plat");						System.out.println(plat);
 		String plng=multi.getParameter("plng");						System.out.println(plng);
 		
-		
+		productDto dto=new productDto(pname, pcomment, pprice, plat, plng);
+		boolean result=productDao.getInstance().write(dto);
+		response.getWriter().print(result);
 	
 	}
+	
 
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

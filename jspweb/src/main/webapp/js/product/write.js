@@ -17,6 +17,9 @@ function onwrite(){
 	//폼객체에 필드 추가(폼값으로 전송이 바로안돼서 js아래에잇는 경도 위도를 변수에 담아서 따로 가져감)
 	writeFormData.set("plat",plat); 
 	writeFormData.set("plng",plng);
+	if(plat==0||plng==0){
+		alert('위치 선택후 등록해주세요');return;
+	}
 	
 	$.ajax({
 		url:"/jspweb/product/info",
@@ -26,6 +29,10 @@ function onwrite(){
 		processData:false,
 		success:(r)=>{
 			console.log(r)
+			if(r=='true'){
+				alert('등록성공');
+				location.href="/jspweb/index.jsp"
+			}
 		}
 	})
 	
