@@ -88,7 +88,7 @@ function deletedata(){ //삭제하기함수
 		data:{del_myno:del_myno},
 		success:(r)=>{
 			console.log('삭제성공')
-			console(r)
+			console.log(r)
 			startmybody();
 		}
 	})
