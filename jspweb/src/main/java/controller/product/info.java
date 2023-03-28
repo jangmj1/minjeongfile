@@ -59,7 +59,7 @@ public class info extends HttpServlet {
 		
 	//1.다운로드할 서버 경로
 	String 경로=request.getSession().getServletContext().getRealPath("/product/pimg");
-	
+	System.out.println(경로);
 	//2.해당 경로의 파일/폴더 객체화(준비물)=>왜시킴? 밑에 파일저장소.setRepository(저장경로객체);	대입하기위해서!!
 	File 저장경로객체=new File(경로);
 	
@@ -104,7 +104,7 @@ public class info extends HttpServlet {
 				파일필드목록.add(filename);//첨부된 파일의 이름을 요청해서 리스트에 저장시킴(db처리 목적)
 				
 				//7.저장할 경로 +/+파일명의 파일을 객체화(7,8실제 업로드)
-				File 업로드할파일=new File(경로+"/"+item.getFieldName());//
+				File 업로드할파일=new File(경로+"/"+filename);//
 				//8.해당파일 객체 저장
 				item.write(업로드할파일); //write는 담는 자료형이 또 File 그래서 업로드할피일로 파일화시킴 */
 				

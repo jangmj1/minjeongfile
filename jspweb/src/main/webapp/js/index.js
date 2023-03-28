@@ -6,23 +6,194 @@
 			console.log(r)*/
 			
 let productlist=null;
-			
+/*제품목록출력*/			
 function productlistprint(){//<==눌렀을때 리스트들의 값이 출력
 	
-	let html='<h3>제품목록페이지</h3>';
-		productlist.forEach( (p)=>{
+	let html='';
+		productlist.forEach( (p,i)=>{
+		console.log(p)
 			html+=
-					`<div>
-						<span>${p.pname}</span>
-						<span>${p.pcomment}</span>
-						<span>${p.pprice}</span>
-						<span>${p.pstate}</span>
-						<span>${p.pview}</span>
-						<span>${p.pdate}</span>
-					</div>`
+			`<div onclick="productprint(${i})" class="productbox">
+				<div class="pimgbox">
+					<img src="/jspweb/product/pimg/${p.pimglist[0]}">
+				</div>
+				<div class="pcontentbox">
+					<div class="pdate">${p.pdate}</div>
+					<div class="pname">${p.pname}</div>
+					<div class="pprice">${p.pprice.toLocaleString()}원</div>
+					<div class="petc">
+						<i class="far fa-eye"></i>${p.pview}
+						<i class="far fa-thumbs-up"></i>5
+						<i class="far fa-comment-dots"></i>2
+					</div>
+				</div>
+			</div>`
 		});
 		document.querySelector('.productlistbox').innerHTML=html
-}			
+}	
+//제품 개별 출력 조회
+function productprint(i){
+	let p=productlist[i];
+	
+	let imghtml='';
+		p.pimglist.forEach( (img,i)=>{
+			
+			if(i==0){
+				
+			/*active : 현재 보여지는 이미지를 뜻함 처음에 한번만 넣어야한다*/
+			imghtml+=`<div class="carousel-item active"> 
+					      <img src="/jspweb/product/pimg/${img}" class="d-block w-100" alt="...">
+					    </div>`
+			}else{
+					imghtml+=`<div class="carousel-item"> 
+					      <img src="/jspweb/product/pimg/${img}" class="d-block w-100" alt="...">
+					    </div>`
+			}
+		})
+		
+			let html='';				
+			html+=
+			`<div class="pviewbox">
+				<div class="pviewinfo">
+					<div class="mimgbox">
+						<img alt="" src="/jspweb/member/pimg/${p.mimg == null ? 'default.webp' : p.mimg }" class="hpimg">
+						<span class="">${p.mid}</span>
+					</div>
+					<div >
+						<button onclick=" productlistprint()" class="pbadge" type="button">목록보기</button>
+					</div>
+				</div>
+			
+				<!-- 이미지캐러샐 : 부트스트랩 -->
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner">
+					${imghtml}
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			
+			
+				<!-- 제품상세 내용물 -->
+				<div class="pdate">${p.pdate}</div>
+				<div class="pname">${p.pname}</div>
+				<div class="pcomment">${p.pcomment}</div>
+				<div class="pstate">
+					<span  class="pbadge">${p.pstate==1?'판매중':p.pstate==2?'거래중':'판매완료'}</span>
+				</div>
+				<div class="pprice">${p.pprice.toLocaleString()}</div>
+				<div class="petc">
+					<i class="far fa-eye"></i>${p.pview}
+						<i class="far fa-thumbs-up"></i>5
+						<i class="far fa-comment-dots"></i>2
+				</div>
+				<div class="pviewbtnbox">
+					<button class="plikebtn" onclick="setplike(${p.pno})" type="button"><i class="far fa-heart"></i></button>
+					<button onclick="chatprint(${i})" type="button">쪽지보내기</button>
+				</div>
+			</div>`
+	      	document.querySelector('.productlistbox').innerHTML=html;
+}	
+
+
+//쪽지보내기채팅
+function chatprint(i){
+	if(memberInfo.mid==null){
+		alert('회원기능입니다. 로그인부터해주세요');
+		return;
+	}
+	
+	let p=productlist[i]
+	let chathtml='';
+	$.ajax({
+		url:"/jspweb/product/chat",
+		method:"get",
+		data:{"pno":p.pno},
+		async:false,//동기식으로
+		success:(r)=>{
+			console.log(r)
+			
+			r.forEach( (o)=>{
+				if(o.frommno==memberInfo.mno){
+					chathtml+=`<div class="sendbox">${o.ncontent}</div>`
+					
+				}else{
+					chathtml+=`<div class="receivebox">${o.ncontent}</div>`
+				}
+				
+			})
+				
+			}
+	
+		
+	})
+	
+	
+	
+	
+	
+	
+	console.log(p)
+	let html=`
+			<div class="chatbox">
+				
+				<div class="pviewinfo">
+					<div class="mimgbox">
+						<img alt="" src="/jspweb/product/pimg/${p.pimglist[0]}" class="hpimg">
+						<span class="pname">${p.pname}</span>
+					</div>
+					
+					<div >
+						<button onclick=" productlistprint()" class="pbadge" type="button">목록보기</button>
+					</div>
+				</div>
+				
+				<div class="chatcontent">
+					${chathtml}
+				</div>
+				
+				<div class="chatbtn">
+					<textarea class="ncontentinput" rows="" cols=""></textarea>
+					<button onclick="sendchat(${p.pno},${p.mno})" type="button">전송</button>
+				</div>
+				
+			</div>`
+	
+	document.querySelector('.productlistbox').innerHTML=html;
+}
+
+
+
+//5.쪽지보내기
+function sendchat( pno , tomno ){
+	console.log(pno);
+	let ncontent = document.querySelector('.ncontentinput').value;
+	
+	$.ajax({
+		url:"/jspweb/product/chat",
+		method:"post",
+		data:{ncontent:ncontent,pno:pno,tomno:tomno},
+		success:(r)=>{
+			console.log(r)
+			if(r=='ture'){
+				
+				document.querySelector('.ncontentinput').value='';	
+				printchat();
+			}
+		}
+	})
+	
+	
+}
+
+
+
 			
 			
 	//1.지도넣기		
@@ -40,6 +211,20 @@ function productlistprint(){//<==눌렀을때 리스트들의 값이 출력
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
         minLevel: 8 // 클러스터 할 최소 지도 레벨 
     });
+ 
+ //2/마커 이미지변경
+var imageSrc = '/jspweb/img/pppp.png', // 마커이미지의 주소입니다    
+    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
+ 
+ 
+ 
+ 
+ 
  
  
  //1.제품목록 호출[1.현재 보이는 지도 좌표내 포함된 제품만]
@@ -67,27 +252,17 @@ function productlistprint(){//<==눌렀을때 리스트들의 값이 출력
        		//.MAP( (인덱스,반복객체명)=>{ })		=>실행문에서return 값을 배열에 대입
        			//vs
        		//.forEach( (반복객체명,인덱스)=>{ })	=>실행문에서 return값 x
-        var markers = r.map((p)=> {
+        var markers = r.map((p,i)=> {
 			console.log(p)
            //마커에 추가코드 작성하기위해 변수화
            let marker=  new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(p.plat, p.plng)
+                position : new kakao.maps.LatLng(p.plat, p.plng),
+                image:markerImage
             });
             
 	            // 마커에 클릭이벤트를 등록합니다
 			kakao.maps.event.addListener(marker, 'click', function() {
-				let html=`<button onclick=" productlistprint()"> <==</button><h3>제품상세페이지</h3>`;
-				html+=
-					`<div>
-						<div>${p.pname}</div>
-						<div>${p.pcomment}</div>
-						<div>${p.pprice}</div>
-						<div>${p.pstate}</div>
-						<div>${p.pview}</div>
-						<div>${p.pdate}</div>
-						<div><button class="plikebtn" onclick="setplike(${p.pno})" type="button"> ${getplike(p.pno)}</button></div>
-					</div>`
-	      			document.querySelector('.productlistbox').innerHTML=html;
+					productprint(i)
 				});//클릭이벤트 end
             
             return marker;

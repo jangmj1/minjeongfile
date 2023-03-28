@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+	<!-- 반응형 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- 폰트어썸 -->

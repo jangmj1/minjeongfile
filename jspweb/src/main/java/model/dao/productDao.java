@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-
+import model.dto.ChatDto;
 import model.dto.productDto;
 
 public class productDao extends Dao{
@@ -144,6 +143,44 @@ public class productDao extends Dao{
 	}
 	
 	
+	//5.
+	public boolean setchat(ChatDto dto) {
+		String sql="insert into note(ncontent,pno,frommno,tomno)value(?,?,?,?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, dto.getNcontent());
+			ps.setInt(2, dto.getPno());
+			ps.setInt(3, dto.getFrommno());
+			ps.setInt(4, dto.getTomno());
+			ps.executeUpdate();
+			return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return false;
+		
+	}
+	//6. 제품에 등록된 채팅[제품번호 일치,현재 보고있는 회원 받거나 보낸내용들]
+	public ArrayList<ChatDto>getchatlist(int pno, int mno){
+		ArrayList<ChatDto> list=new ArrayList<>();
+		String sql="select * from note where pno=? and (frommno =? or tomno=?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, pno);
+			ps.setInt(2, mno);
+			ps.setInt(3, mno);
+			rs=ps.executeQuery();
+			while (rs.next()) {
+				list.add(new ChatDto(
+						rs.getInt(1), rs.getString(2), rs.getString(3)
+						, rs.getInt(4), rs.getInt(5), rs.getInt(6))	);
+			}
+					
+		} catch (SQLException e) {
+			System.out.println(e);
+		}return list;
+	}
 	
 	
 	
