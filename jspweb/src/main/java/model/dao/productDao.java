@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.dto.ChatDto;
 import model.dto.productDto;
@@ -180,15 +181,55 @@ public class productDao extends Dao{
 		} catch (SQLException e) {
 			System.out.println(e);
 		}return list;
+		
+		//7.
+		
 	}
 	
+	public HashMap<String, Integer> getsum(){
+		ArrayList<String>list;	//string 타입객체만 리스트에 저장
+		HashMap<String, Integer>map=new HashMap<>(); //string 타입의 key와 Integer타입의 데이터 리스트에 저장
+		String sql="select"
+				+ "	sum( if(mpcomment='포인트충전' ,mpamount,0) )as 총포인트합계, "
+				+ "    date_format(mpdate,'%Y %m %d')as 충전날짜 "
+				+ "    from mpoint "
+				+ "    group by date_format(mpdate,'%Y %m %d') "
+				+ "    order by 충전날짜 desc limit 5";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while (rs.next()) {
+				map.put(rs.getString(2),rs.getInt(1)); //put 순서대로 저장하는게아니라 맘대로저장함
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return map;
+		
+	}
+	
+	//7. 날짜별 포인트 충전 내역
 	
 	
-	
-	
-	
-	
-	
+	/*
+	  	//1.해당 타입의 객체를 어러개 저장할수 있는 리스트 객체 선언
+	  	 * ArrayList<ChatDto> list=new ArrayList<>();
+	  		[데이터 : '유재석','강호동','신동엽']->타입1개
+	  		.add(데이터)
+	  		
+	  	//2.해당 키타입과 데이터타입의 해당하는 키와 데이터를 여러개 저장할수 있는 객체 선언
+	  	 * HashMap<키타입,데이터타입>map=new HashMap<>();
+	 		['유재석'=30 , '강호동'=20 , '신동엽'=30]
+	 		.
+	 	//3.JSON = JS 객체
+	 	 * LET 객체명 = {
+	 	 	필드명 : 값,
+	 	 	필드명 : 값
+	 	 
+	 	 	}
+	 	
+	 */
 	
 	
 	

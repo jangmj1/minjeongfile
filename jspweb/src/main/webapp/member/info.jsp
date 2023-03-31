@@ -12,6 +12,11 @@
 	<%@ include file="/header.jsp"  %>
 	
 	<div class="container">
+		<h3>차트</h3>
+		<div>
+  		<canvas id="myChart"></canvas>
+		</div>
+			
 		<h3> 회원정보 </h3>
 		<div>
 			<div>
@@ -55,6 +60,8 @@
 	
 	</div>
 	
+	<!-- 차트 js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!-- 모달 js -->
 	<script src="/jspweb/js/modal.js" type="text/javascript"></script>
 	
