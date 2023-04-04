@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body >
 	<%@ include file = "/header.jsp" %> <!-- header 를 같이 연것 jsp 페이지 포함 -->
